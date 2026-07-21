@@ -36,16 +36,16 @@ resources/05_workplace_prompt_library.html
   Reusable workplace prompt library (39 prompts across 6 categories) with copy buttons, variables, follow-ups, output structure, and human-review reminders.
 
 resources/06_case_study_workbook.html
-  Eight fictional case studies with worksheets, rubrics, teaching notes on weak prompts, writing space, and responsible-use reminders (no trainer answers).
+  Interactive workbook with eight fictional case studies, fillable worksheets, JSON save/restore, per-case ChatGPT evaluation prompts, rubrics, and responsible-use reminders (no trainer answers).
 
 resources/07_gamma_quick_guide.html
   ChatGPT-to-Gamma quick guide: 13-step workflow, reusable presentation prompt, six-slide sample, pre/post checklists, common mistakes.
 
 resources/08_participant_assessment.html
-  End-of-session assessment: Section A (10 MCQs), Section B (2 prompt improvements), Section C (practical scenario with 9 sub-tasks); no answer key.
+  Interactive end-of-session assessment: Section A (10 MCQs), Section B (2 prompt improvements), Section C (practical scenario with 9 sub-tasks), JSON save/restore, and ChatGPT feedback prompts.
 
 resources/09_post_training_challenge.html
-  One-week application challenge with 11 documentation items, scoring rubric, and reflection questions.
+  Interactive one-week application challenge with 11 fillable documentation items, calculated scoring rubric, reflection questions, JSON save/restore, and ChatGPT feedback prompts.
 
 Ajanta_Pharma_Participant_Resource_Pack.zip
   Compressed archive of the complete participant resource pack folder structure for distribution.

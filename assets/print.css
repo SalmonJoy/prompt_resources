@@ -49,6 +49,12 @@
   .toolbar,
   .btn,
   .copy-btn,
+  .case-actions,
+  .workbook-status,
+  .assessment-actions,
+  .assessment-status,
+  .challenge-actions,
+  .challenge-status,
   .back-link,
   nav {
     display: none !important;
@@ -151,6 +157,22 @@
         #c7d2de 30px
       ) !important;
     border: 1px solid #c7d2de;
+  }
+
+  textarea.fillable-input,
+  textarea.write-lines {
+    color: #000 !important;
+    border: 1px solid #c7d2de !important;
+    box-shadow: none !important;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap;
+  }
+
+  .worksheet .ws-field textarea.fillable-input {
+    width: 100%;
+    min-height: 42px;
+    background: #fff !important;
   }
 
   /* One-page resources: prevent stray overflow to a 2nd sheet */

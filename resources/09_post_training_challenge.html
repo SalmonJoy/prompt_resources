@@ -12,7 +12,72 @@
   .doc-item .field-label { margin-top:0; }
   .rubric-list li { margin-bottom:6px; }
   .rubric-weight { display:inline-block; min-width:52px; font-weight:800; color:var(--teal); }
-  @media print { @page{ size:A4 portrait; margin:13mm; } .doc-item{ break-inside:avoid; } }
+  .challenge-status { min-height:24px; display:flex; align-items:center; color:var(--ink-soft); font-size:0.88rem; font-weight:600; }
+  .challenge-status.ok { color:var(--green); }
+  .challenge-status.error { color:var(--rose); }
+  .fillable-input {
+    width:100%;
+    font-family:var(--font);
+    font-size:0.95rem;
+    line-height:1.45;
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    resize:vertical;
+    overflow:hidden;
+    background:#fff;
+  }
+  textarea.write-lines.fillable-input { display:block; min-height:128px; }
+  textarea.write-lines.short { min-height:64px; }
+  textarea.write-lines.tall { min-height:224px; }
+  .challenge-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    margin:18px 0;
+  }
+  .challenge-actions .btn .icon { width:18px; height:18px; fill:currentColor; }
+  .rubric-control {
+    display:grid;
+    grid-template-columns:minmax(120px, 160px) 1fr;
+    gap:10px;
+    align-items:start;
+    padding:10px;
+  }
+  .rubric-score-wrap { display:flex; flex-direction:column; gap:4px; font-size:0.82rem; color:var(--ink-soft); font-weight:700; }
+  .rubric-score {
+    width:100%;
+    font-family:var(--font);
+    font-size:0.95rem;
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 10px;
+  }
+  .rubric-notes { min-height:70px; resize:vertical; }
+  .rubric-total { font-size:1.08rem; font-weight:800; color:var(--navy); padding:12px 14px; }
+  @media print {
+    @page{ size:A4 portrait; margin:13mm; }
+    .doc-item{ break-inside:avoid; }
+    .challenge-status,
+    .challenge-actions { display:none !important; }
+    .fillable-input,
+    textarea.write-lines.fillable-input,
+    .rubric-score,
+    .rubric-notes {
+      color:#000 !important;
+      background:#fff !important;
+      border:1px solid #c7d2de !important;
+      box-shadow:none !important;
+      resize:none;
+      overflow:hidden;
+      white-space:pre-wrap;
+    }
+    .rubric-control { grid-template-columns:130px 1fr; padding:6px; }
+  }
+  @media (max-width:820px){ .rubric-control{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -27,7 +92,8 @@
     <div class="eyebrow">Resource 09 &middot; Post-Training Challenge</div>
     <h1>One-Week Application Challenge</h1>
     <p>Practice is what turns a workshop into a skill. Over the next week, apply the advanced framework to one
-    real but safe workplace task and document what you learn.</p>
+    real but safe workplace task and document what you learn. Type into this page, save your progress, restore
+    it later, and copy structured ChatGPT feedback prompts.</p>
   </header>
 
   <div class="toolbar no-print">
@@ -35,7 +101,35 @@
       <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
       Print this resource
     </button>
+    <button type="button" class="btn teal" id="download-challenge">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#doc"></use></svg>
+      Download my challenge
+    </button>
+    <label class="btn secondary" for="upload-challenge">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#layers"></use></svg>
+      Upload saved challenge
+    </label>
+    <input type="file" id="upload-challenge" accept="application/json,.json" hidden>
+    <button type="button" class="btn secondary" id="clear-challenge">
+      Clear saved challenge
+    </button>
     <a class="btn secondary" href="../index.html">All resources</a>
+    <span class="challenge-status" id="challenge-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <div class="challenge-actions no-print" aria-label="Challenge feedback prompts">
+    <button type="button" class="btn teal ask-challenge-btn" data-prompt-scope="documentation">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>
+      Ask ChatGPT about documentation
+    </button>
+    <button type="button" class="btn teal ask-challenge-btn" data-prompt-scope="rubric-reflection">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>
+      Ask ChatGPT about rubric and reflection
+    </button>
+    <button type="button" class="btn ask-challenge-btn" data-prompt-scope="full">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>
+      Ask ChatGPT about full challenge
+    </button>
   </div>
 
   <section class="card">
@@ -135,9 +229,531 @@
 
 </div>
 <script>
-  if (new URLSearchParams(location.search).get('print') === '1') {
-    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
-  }
+  (function () {
+    var STORAGE_KEY = 'ajanta-post-training-challenge-v1';
+    var RESOURCE = 'post-training-challenge';
+    var VERSION = 1;
+    var RUBRIC = [
+      { field: 'task-framing', label: 'Task framing', max: 20 },
+      { field: 'context-quality', label: 'Context quality', max: 20 },
+      { field: 'constraint-design', label: 'Constraint design', max: 15 },
+      { field: 'output-design', label: 'Output design', max: 15 },
+      { field: 'refinement-process', label: 'Refinement process', max: 15 },
+      { field: 'validation-responsible-use', label: 'Validation and responsible use', max: 15 }
+    ];
+    var statusEl;
+    var saveTimer;
+    var fieldCounts = { documentation: {}, reflection: {} };
+
+    function initChallenge() {
+      statusEl = document.getElementById('challenge-status');
+      enhanceWriteAreas();
+      enhanceRubric();
+      bindControls();
+      bindPromptButtons();
+      bindAutosave();
+      loadLocalChallenge();
+      updateTotal();
+      autosizeAll();
+    }
+
+    function enhanceWriteAreas() {
+      document.querySelectorAll('.write-lines').forEach(function (slot) {
+        if (slot.tagName.toLowerCase() === 'textarea') return;
+        var section = findSection(slot);
+        var label = findFieldLabel(slot);
+        var field = uniqueField(section, label);
+        var textarea = document.createElement('textarea');
+        textarea.className = slot.className + ' fillable-input';
+        textarea.setAttribute('data-section', section);
+        textarea.setAttribute('data-field', field);
+        textarea.setAttribute('data-label', label);
+        textarea.setAttribute('aria-label', label);
+        textarea.placeholder = 'Type your response here...';
+        textarea.rows = 3;
+        slot.replaceWith(textarea);
+      });
+    }
+
+    function enhanceRubric() {
+      document.querySelectorAll('.worksheet .ws-row').forEach(function (row, index) {
+        var labelEl = row.querySelector('.ws-label');
+        var fieldEl = row.querySelector('.ws-field');
+        if (!labelEl || !fieldEl) return;
+
+        var labelText = cleanText(labelEl.textContent);
+        if (labelText.indexOf('Total') === 0) {
+          fieldEl.innerHTML = '<div class="rubric-total"><span id="challenge-total-score">0</span> / 100</div>';
+          return;
+        }
+
+        var criterion = RUBRIC[index];
+        if (!criterion) return;
+
+        fieldEl.textContent = '';
+        var control = document.createElement('div');
+        control.className = 'rubric-control';
+
+        var scoreWrap = document.createElement('label');
+        scoreWrap.className = 'rubric-score-wrap';
+        scoreWrap.textContent = 'Score out of ' + criterion.max;
+
+        var score = document.createElement('input');
+        score.type = 'number';
+        score.className = 'rubric-score';
+        score.min = '0';
+        score.max = String(criterion.max);
+        score.step = '1';
+        score.setAttribute('data-rubric-score', criterion.field);
+        score.setAttribute('data-label', criterion.label);
+        score.setAttribute('data-max', String(criterion.max));
+        score.setAttribute('aria-label', criterion.label + ' score out of ' + criterion.max);
+        scoreWrap.appendChild(score);
+
+        var notes = document.createElement('textarea');
+        notes.className = 'fillable-input rubric-notes';
+        notes.setAttribute('data-rubric-notes', criterion.field);
+        notes.setAttribute('data-label', criterion.label + ' notes');
+        notes.setAttribute('aria-label', criterion.label + ' notes');
+        notes.placeholder = 'Notes or evidence for this score...';
+        notes.rows = 2;
+
+        control.appendChild(scoreWrap);
+        control.appendChild(notes);
+        fieldEl.appendChild(control);
+      });
+    }
+
+    function bindControls() {
+      var downloadBtn = document.getElementById('download-challenge');
+      var uploadInput = document.getElementById('upload-challenge');
+      var clearBtn = document.getElementById('clear-challenge');
+      if (downloadBtn) downloadBtn.addEventListener('click', downloadChallenge);
+      if (uploadInput) uploadInput.addEventListener('change', uploadChallenge);
+      if (clearBtn) clearBtn.addEventListener('click', clearChallenge);
+    }
+
+    function bindPromptButtons() {
+      document.querySelectorAll('.ask-challenge-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+          copyChallengePrompt(button.getAttribute('data-prompt-scope'), button);
+        });
+      });
+    }
+
+    function bindAutosave() {
+      document.querySelectorAll('textarea[data-section][data-field], input[data-rubric-score], textarea[data-rubric-notes]').forEach(function (control) {
+        control.addEventListener('input', function () {
+          if (control.hasAttribute('data-rubric-score')) clampScore(control);
+          if (control.tagName.toLowerCase() === 'textarea') autosize(control);
+          updateTotal();
+          scheduleLocalSave();
+        });
+      });
+    }
+
+    function scheduleLocalSave() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        saveLocalChallenge('Saved locally in this browser.');
+      }, 250);
+    }
+
+    function collectChallenge() {
+      var data = {
+        pack: 'Ajanta Pharma Participant Resource Pack',
+        resource: RESOURCE,
+        version: VERSION,
+        savedAt: new Date().toISOString(),
+        documentation: {},
+        rubric: {},
+        reflection: {}
+      };
+
+      document.querySelectorAll('textarea[data-section="documentation"][data-field]').forEach(function (textarea) {
+        data.documentation[textarea.getAttribute('data-field')] = textarea.value;
+      });
+
+      document.querySelectorAll('textarea[data-section="reflection"][data-field]').forEach(function (textarea) {
+        data.reflection[textarea.getAttribute('data-field')] = textarea.value;
+      });
+
+      RUBRIC.forEach(function (criterion) {
+        var score = document.querySelector('input[data-rubric-score="' + criterion.field + '"]');
+        var notes = document.querySelector('textarea[data-rubric-notes="' + criterion.field + '"]');
+        data.rubric[criterion.field] = {
+          label: criterion.label,
+          max: criterion.max,
+          score: score ? score.value : '',
+          notes: notes ? notes.value : ''
+        };
+      });
+
+      return data;
+    }
+
+    function applyChallenge(data) {
+      document.querySelectorAll('textarea[data-section="documentation"][data-field]').forEach(function (textarea) {
+        var field = textarea.getAttribute('data-field');
+        textarea.value = data.documentation && typeof data.documentation[field] === 'string' ? data.documentation[field] : '';
+        autosize(textarea);
+      });
+
+      document.querySelectorAll('textarea[data-section="reflection"][data-field]').forEach(function (textarea) {
+        var field = textarea.getAttribute('data-field');
+        textarea.value = data.reflection && typeof data.reflection[field] === 'string' ? data.reflection[field] : '';
+        autosize(textarea);
+      });
+
+      RUBRIC.forEach(function (criterion) {
+        var row = data.rubric && data.rubric[criterion.field];
+        var score = document.querySelector('input[data-rubric-score="' + criterion.field + '"]');
+        var notes = document.querySelector('textarea[data-rubric-notes="' + criterion.field + '"]');
+        if (score) {
+          score.value = row && typeof row.score === 'string' ? row.score : '';
+          clampScore(score);
+        }
+        if (notes) {
+          notes.value = row && typeof row.notes === 'string' ? row.notes : '';
+          autosize(notes);
+        }
+      });
+
+      updateTotal();
+    }
+
+    function validateChallenge(data) {
+      return !!(
+        data &&
+        data.resource === RESOURCE &&
+        data.version === VERSION &&
+        data.documentation &&
+        data.rubric &&
+        data.reflection
+      );
+    }
+
+    function saveLocalChallenge(message) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(collectChallenge()));
+        if (message) setStatus(message, 'ok');
+      } catch (error) {
+        setStatus('Could not save locally. Use Download my challenge to keep a copy.', 'error');
+      }
+    }
+
+    function loadLocalChallenge() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        var data = JSON.parse(raw);
+        if (!validateChallenge(data)) return;
+        applyChallenge(data);
+        setStatus('Restored autosaved challenge from this browser.', 'ok');
+      } catch (error) {
+        setStatus('Autosaved challenge could not be restored.', 'error');
+      }
+    }
+
+    function downloadChallenge() {
+      var data = collectChallenge();
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'ajanta-post-training-challenge-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      saveLocalChallenge();
+      setStatus('Downloaded your challenge JSON progress file.', 'ok');
+    }
+
+    function uploadChallenge(event) {
+      var file = event.target.files && event.target.files[0];
+      if (!file) return;
+      clearTimeout(saveTimer);
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var data = JSON.parse(String(reader.result || ''));
+          if (!validateChallenge(data)) {
+            setStatus('That file is not a valid Post-Training Challenge progress file.', 'error');
+            return;
+          }
+          applyChallenge(data);
+          saveLocalChallenge();
+          setStatus('Uploaded and restored saved challenge progress.', 'ok');
+        } catch (error) {
+          setStatus('Could not read that JSON file. Current answers were not changed.', 'error');
+        } finally {
+          event.target.value = '';
+        }
+      };
+      reader.onerror = function () {
+        setStatus('Could not read that file. Current answers were not changed.', 'error');
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+
+    function clearChallenge() {
+      if (!confirm('Clear all typed challenge answers and local autosaved progress?')) return;
+      document.querySelectorAll('textarea[data-section][data-field], textarea[data-rubric-notes]').forEach(function (textarea) {
+        textarea.value = '';
+        autosize(textarea);
+      });
+      document.querySelectorAll('input[data-rubric-score]').forEach(function (score) {
+        score.value = '';
+      });
+      updateTotal();
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {}
+      setStatus('Cleared typed answers and local autosave.', 'ok');
+    }
+
+    function copyChallengePrompt(scope, button) {
+      var prompt = buildPrompt(scope);
+      copyText(prompt, function () {
+        setStatus('Copied ChatGPT prompt for ' + promptName(scope) + '.', 'ok');
+        flashButton(button);
+      }, function () {
+        setStatus('Could not copy automatically. Select and copy manually.', 'error');
+      });
+    }
+
+    function buildPrompt(scope) {
+      if (scope === 'documentation') return buildDocumentationPrompt();
+      if (scope === 'rubric-reflection') return buildRubricReflectionPrompt();
+      return buildFullPrompt();
+    }
+
+    function buildDocumentationPrompt() {
+      return [
+        commonPromptIntro(),
+        'Evaluate the documentation section of this one-week post-training challenge.',
+        'Documentation responses:\n' + getTextFields('documentation'),
+        'Score the documentation out of 70 for task framing, context quality, prompt improvement, validation, time-saved realism and lessons learned.',
+        'Expected output format:\n' +
+          '1. Documentation score: X/70\n' +
+          '2. Score breakdown table with columns: Criterion, Max points, Score, Feedback\n' +
+          '3. Three strengths\n' +
+          '4. Three improvement areas\n' +
+          '5. Suggested stronger improved prompt\n' +
+          '6. Better validation checklist'
+      ].join('\n\n');
+    }
+
+    function buildRubricReflectionPrompt() {
+      return [
+        commonPromptIntro(),
+        'Evaluate the participant self-rubric and reflection section.',
+        'Self-rubric:\n' + getRubricText(),
+        'Reflection responses:\n' + getTextFields('reflection'),
+        'Review self-score consistency, reflection depth, responsible-use awareness and next-step quality.',
+        'Expected output format:\n' +
+          '1. Rubric/reflection score: X/30\n' +
+          '2. Self-score consistency table with columns: Criterion, Participant score, Max, Comment\n' +
+          '3. Three useful reflection insights\n' +
+          '4. Three gaps or blind spots\n' +
+          '5. Recommended next workplace practice task'
+      ].join('\n\n');
+    }
+
+    function buildFullPrompt() {
+      return [
+        commonPromptIntro(),
+        'Evaluate the full one-week post-training challenge.',
+        'Documentation responses:\n' + getTextFields('documentation'),
+        'Self-rubric:\n' + getRubricText(),
+        'Calculated self-score: ' + getTotalScore() + ' / 100',
+        'Reflection responses:\n' + getTextFields('reflection'),
+        'Use the intended scoring scale: documentation and application evidence 70 points, rubric/reflection quality 30 points, total 100.',
+        'Expected output format:\n' +
+          '1. Overall score: X/100\n' +
+          '2. Rubric score table with columns: Criterion, Max points, Score, Feedback\n' +
+          '3. Three strengths\n' +
+          '4. Three improvement areas\n' +
+          '5. Suggested stronger improved prompt\n' +
+          '6. Better validation checklist\n' +
+          '7. Recommended next workplace practice task'
+      ].join('\n\n');
+    }
+
+    function commonPromptIntro() {
+      return [
+        'You are evaluating a participant one-week application challenge from a fictional corporate workshop on advanced prompt engineering with ChatGPT and Gamma AI.',
+        'Evaluate prompt-engineering practice only. Do not judge real company compliance, pharmaceutical correctness, regulatory correctness or real-world suitability.',
+        'Mark empty fields as [Not provided]. Do not invent context, missing facts, participant intent or workplace details. Be specific, practical and concise.'
+      ].join('\n');
+    }
+
+    function getTextFields(section) {
+      var fields = [];
+      document.querySelectorAll('textarea[data-section="' + section + '"][data-field]').forEach(function (textarea) {
+        fields.push(textarea.getAttribute('data-label') + ':\n' + valueOrMissing(textarea.value));
+      });
+      return fields.length ? fields.join('\n\n') : '[Not provided]';
+    }
+
+    function getRubricText() {
+      return RUBRIC.map(function (criterion) {
+        var score = document.querySelector('input[data-rubric-score="' + criterion.field + '"]');
+        var notes = document.querySelector('textarea[data-rubric-notes="' + criterion.field + '"]');
+        return [
+          criterion.label + ' (' + criterion.max + ' max)',
+          'Participant score: ' + valueOrMissing(score ? score.value : ''),
+          'Notes: ' + valueOrMissing(notes ? notes.value : '')
+        ].join('\n');
+      }).join('\n\n');
+    }
+
+    function updateTotal() {
+      var totalEl = document.getElementById('challenge-total-score');
+      if (totalEl) totalEl.textContent = String(getTotalScore());
+    }
+
+    function getTotalScore() {
+      var total = 0;
+      document.querySelectorAll('input[data-rubric-score]').forEach(function (input) {
+        total += numericScore(input.value);
+      });
+      return total;
+    }
+
+    function numericScore(value) {
+      var parsed = parseFloat(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function clampScore(input) {
+      if (input.value === '') return;
+      var max = parseFloat(input.getAttribute('data-max') || input.max || '0');
+      var value = parseFloat(input.value);
+      if (!Number.isFinite(value)) {
+        input.value = '';
+        return;
+      }
+      if (value < 0) value = 0;
+      if (Number.isFinite(max) && value > max) value = max;
+      input.value = String(value);
+    }
+
+    function copyText(text, onDone, onError) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onDone, function () {
+          fallbackCopy(text, onDone, onError);
+        });
+      } else {
+        fallbackCopy(text, onDone, onError);
+      }
+    }
+
+    function fallbackCopy(text, onDone, onError) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        onDone();
+      } catch (error) {
+        if (onError) onError(error);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function flashButton(button) {
+      var original = button.innerHTML;
+      button.textContent = 'Copied prompt';
+      setTimeout(function () {
+        button.innerHTML = original;
+      }, 1400);
+    }
+
+    function autosizeAll() {
+      document.querySelectorAll('textarea[data-section][data-field], textarea[data-rubric-notes]').forEach(autosize);
+    }
+
+    function autosize(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.max(textarea.scrollHeight, 44) + 'px';
+    }
+
+    function setStatus(message, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.className = 'challenge-status' + (kind ? ' ' + kind : '');
+    }
+
+    function findSection(slot) {
+      var reflectionHeading = findHeading('Reflection');
+      if (reflectionHeading && (reflectionHeading.compareDocumentPosition(slot) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+        return 'reflection';
+      }
+      return 'documentation';
+    }
+
+    function findHeading(text) {
+      var headings = document.querySelectorAll('h2');
+      for (var i = 0; i < headings.length; i += 1) {
+        if (cleanText(headings[i].textContent) === text) return headings[i];
+      }
+      return null;
+    }
+
+    function findFieldLabel(slot) {
+      var item = slot.closest('.doc-item');
+      var label = item ? item.querySelector('.field-label') : null;
+      return cleanText(label ? label.textContent : 'Participant response');
+    }
+
+    function promptName(scope) {
+      if (scope === 'documentation') return 'the documentation section';
+      if (scope === 'rubric-reflection') return 'rubric and reflection';
+      return 'the full challenge';
+    }
+
+    function uniqueField(section, label) {
+      var base = slug(label || 'field');
+      if (!fieldCounts[section]) fieldCounts[section] = {};
+      var count = fieldCounts[section][base] || 0;
+      fieldCounts[section][base] = count + 1;
+      return count ? base + '-' + (count + 1) : base;
+    }
+
+    function slug(text) {
+      return cleanText(text)
+        .toLowerCase()
+        .replace(/&/g, 'and')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'field';
+    }
+
+    function cleanText(text) {
+      return String(text || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function valueOrMissing(value) {
+      var text = cleanText(value || '');
+      return text ? text : '[Not provided]';
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChallenge);
+    } else {
+      initChallenge();
+    }
+
+    if (new URLSearchParams(location.search).get('print') === '1') {
+      window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+    }
+  })();
 </script>
 </body>
 </html>

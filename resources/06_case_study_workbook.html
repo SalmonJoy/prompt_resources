@@ -19,7 +19,69 @@
   .rubric td:first-child { width:42%; }
   .hint { background:var(--teal-soft); border:1px solid #b8e2de; border-radius:8px; padding:8px 12px; font-size:0.9rem; margin:8px 0; }
   .hint b { color:#0b6f6f; }
-  @media print { @page { size:A4 portrait; margin:13mm; } .case-study{ box-shadow:none; } .case-study{ break-before:page; page-break-before:always; } #cs1{ break-before:auto; page-break-before:auto; } }
+  .workbook-status { min-height:24px; display:flex; align-items:center; color:var(--ink-soft); font-size:0.88rem; font-weight:600; }
+  .workbook-status.ok { color:var(--green); }
+  .workbook-status.error { color:var(--rose); }
+  .fillable-input {
+    width:100%;
+    font-family:var(--font);
+    font-size:0.95rem;
+    line-height:1.45;
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    resize:vertical;
+    overflow:hidden;
+  }
+  .worksheet .ws-field { padding:0; }
+  .worksheet .ws-field .fillable-input {
+    display:block;
+    min-height:54px;
+    border:0;
+    border-radius:0;
+    background:#fff;
+  }
+  textarea.write-lines.fillable-input {
+    display:block;
+    background:#fff;
+    min-height:128px;
+  }
+  textarea.write-lines.short { min-height:64px; }
+  textarea.write-lines.tall { min-height:224px; }
+  .reflection-answer { margin-top:8px; }
+  .checklist input.checkbox {
+    cursor:pointer;
+    accent-color:var(--blue);
+  }
+  .case-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    margin:18px 0;
+  }
+  .case-actions .btn .icon { width:18px; height:18px; fill:currentColor; }
+  @media print {
+    @page { size:A4 portrait; margin:13mm; }
+    .case-study{ box-shadow:none; }
+    .case-study{ break-before:page; page-break-before:always; }
+    #cs1{ break-before:auto; page-break-before:auto; }
+    .workbook-status,
+    .case-actions { display:none !important; }
+    .fillable-input,
+    textarea.write-lines.fillable-input,
+    .worksheet .ws-field .fillable-input {
+      color:#000 !important;
+      background:#fff !important;
+      border:1px solid #c7d2de !important;
+      box-shadow:none !important;
+      resize:none;
+      overflow:hidden;
+      white-space:pre-wrap;
+    }
+    .worksheet .ws-field { min-height:46px; }
+  }
 </style>
 </head>
 <body>
@@ -34,8 +96,8 @@
     <div class="eyebrow">Resource 06 &middot; Case-Study Workbook</div>
     <h1>Case-Study Workbook</h1>
     <p>Eight fictional workplace case studies for hands-on practice. For each case, diagnose the weak prompt,
-    then build a stronger one using the advanced framework. Write directly on the printed pages. There are no
-    trainer answers here &mdash; the goal is your own practice.</p>
+    then build a stronger one using the advanced framework. Type directly into this page or print it for
+    handwriting. There are no trainer answers here &mdash; the goal is your own practice.</p>
   </header>
 
   <div class="toolbar no-print">
@@ -43,14 +105,27 @@
       <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
       Print this resource
     </button>
+    <button type="button" class="btn teal" id="download-workbook">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#doc"></use></svg>
+      Download my work
+    </button>
+    <label class="btn secondary" for="upload-workbook">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#layers"></use></svg>
+      Upload saved work
+    </label>
+    <input type="file" id="upload-workbook" accept="application/json,.json" hidden>
+    <button type="button" class="btn secondary" id="clear-workbook">
+      Clear saved work
+    </button>
     <a class="btn secondary" href="../index.html">All resources</a>
+    <span class="workbook-status" id="workbook-status" role="status" aria-live="polite"></span>
   </div>
 
   <div class="box tip">
     <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>How to work through each case</div>
-    Read the scenario and the fictional source, note what is wrong with the weak prompt, complete the blank
-    framework worksheet, then write your improved prompt and one follow-up prompt. Finish with the output-review
-    checklist and the rubric. Keep everything fictional.
+    Read the scenario and the fictional source, note what is wrong with the weak prompt, complete the framework
+    worksheet, then write your improved prompt and one follow-up prompt. Your typing is saved in this browser;
+    download a JSON progress file if you want to keep it or restore it later. Keep everything fictional.
   </div>
 
   <!-- =============== CASE 1 =============== -->
@@ -678,9 +753,474 @@
 
 </div>
 <script>
-  if (new URLSearchParams(location.search).get('print') === '1') {
-    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
-  }
+  (function () {
+    var STORAGE_KEY = 'ajanta-case-study-workbook-v1';
+    var RESOURCE = 'case-study-workbook';
+    var VERSION = 1;
+    var statusEl;
+    var saveTimer;
+    var fieldCounts = {};
+
+    function initWorkbook() {
+      statusEl = document.getElementById('workbook-status');
+      enhanceCases();
+      bindWorkbookControls();
+      bindAutosave();
+      loadLocalWork();
+      autosizeAll();
+    }
+
+    function enhanceCases() {
+      document.querySelectorAll('.case-study').forEach(function (caseEl) {
+        var caseId = caseEl.id;
+        fieldCounts[caseId] = {};
+        enhanceWorksheet(caseEl, caseId);
+        enhanceWriteAreas(caseEl, caseId);
+        enhanceReflections(caseEl, caseId);
+        enhanceChecklist(caseEl, caseId);
+        addCaseActions(caseEl, caseId);
+      });
+    }
+
+    function enhanceWorksheet(caseEl, caseId) {
+      caseEl.querySelectorAll('.worksheet .ws-row').forEach(function (row) {
+        var labelEl = row.querySelector('.ws-label');
+        var fieldEl = row.querySelector('.ws-field');
+        if (!labelEl || !fieldEl || fieldEl.querySelector('textarea')) return;
+        var label = cleanText(labelEl.textContent);
+        var textarea = createTextarea(caseId, slug(label), label, 'fillable-input', 'Type your ' + label.toLowerCase() + '...');
+        fieldEl.textContent = '';
+        fieldEl.appendChild(textarea);
+      });
+    }
+
+    function enhanceWriteAreas(caseEl, caseId) {
+      caseEl.querySelectorAll('.write-lines').forEach(function (slot) {
+        if (slot.tagName.toLowerCase() === 'textarea') return;
+        var label = findFieldLabel(slot);
+        var field = uniqueField(caseId, label);
+        var textarea = createTextarea(caseId, field, label, slot.className + ' fillable-input', 'Type your response here...');
+        slot.replaceWith(textarea);
+      });
+    }
+
+    function enhanceReflections(caseEl, caseId) {
+      var heading = findHeading(caseEl, 'Reflection questions');
+      var list = heading ? heading.nextElementSibling : null;
+      if (!list || list.tagName.toLowerCase() !== 'ul') return;
+      Array.prototype.forEach.call(list.children, function (item, index) {
+        if (item.querySelector('textarea')) return;
+        var question = cleanText(item.textContent);
+        var textarea = createTextarea(
+          caseId,
+          'reflection-' + (index + 1),
+          'Reflection: ' + question,
+          'write-lines short fillable-input reflection-answer',
+          'Type your reflection here...'
+        );
+        item.appendChild(textarea);
+      });
+    }
+
+    function enhanceChecklist(caseEl, caseId) {
+      caseEl.querySelectorAll('.checklist li').forEach(function (item, index) {
+        var marker = item.querySelector('.checkbox');
+        if (!marker || marker.tagName.toLowerCase() === 'input') return;
+        var label = cleanText(item.textContent);
+        var input = document.createElement('input');
+        input.type = 'checkbox';
+        input.className = 'checkbox fillable-check';
+        input.setAttribute('data-case', caseId);
+        input.setAttribute('data-field', 'checklist-' + (index + 1));
+        input.setAttribute('data-label', 'Checklist: ' + label);
+        input.setAttribute('aria-label', label);
+        marker.replaceWith(input);
+      });
+    }
+
+    function addCaseActions(caseEl, caseId) {
+      if (caseEl.querySelector('.ask-chatgpt-btn')) return;
+      var actions = document.createElement('div');
+      actions.className = 'case-actions no-print';
+
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn teal ask-chatgpt-btn';
+      button.setAttribute('data-case', caseId);
+      button.innerHTML = '<svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Ask ChatGPT how did I do?';
+      button.addEventListener('click', function () {
+        copyCaseEvaluationPrompt(caseEl, button);
+      });
+
+      actions.appendChild(button);
+      var warning = caseEl.querySelector('.box.warning');
+      if (warning && warning.parentNode) {
+        warning.parentNode.insertBefore(actions, warning);
+      } else {
+        caseEl.querySelector('.cs-body').appendChild(actions);
+      }
+    }
+
+    function createTextarea(caseId, field, label, className, placeholder) {
+      var textarea = document.createElement('textarea');
+      textarea.className = className;
+      textarea.setAttribute('data-case', caseId);
+      textarea.setAttribute('data-field', field);
+      textarea.setAttribute('data-label', label);
+      textarea.setAttribute('aria-label', label);
+      textarea.placeholder = placeholder;
+      textarea.rows = 3;
+      return textarea;
+    }
+
+    function bindWorkbookControls() {
+      var downloadBtn = document.getElementById('download-workbook');
+      var uploadInput = document.getElementById('upload-workbook');
+      var clearBtn = document.getElementById('clear-workbook');
+
+      if (downloadBtn) downloadBtn.addEventListener('click', downloadWork);
+      if (uploadInput) uploadInput.addEventListener('change', uploadWork);
+      if (clearBtn) clearBtn.addEventListener('click', clearWork);
+    }
+
+    function bindAutosave() {
+      document.querySelectorAll('[data-case][data-field]').forEach(function (control) {
+        var eventName = control.type === 'checkbox' ? 'change' : 'input';
+        control.addEventListener(eventName, function () {
+          if (control.tagName.toLowerCase() === 'textarea') autosize(control);
+          scheduleLocalSave();
+        });
+      });
+    }
+
+    function scheduleLocalSave() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        saveLocalWork('Saved locally in this browser.');
+      }, 250);
+    }
+
+    function collectWork() {
+      var data = {
+        pack: 'Ajanta Pharma Participant Resource Pack',
+        resource: RESOURCE,
+        version: VERSION,
+        savedAt: new Date().toISOString(),
+        cases: {}
+      };
+
+      document.querySelectorAll('.case-study').forEach(function (caseEl) {
+        var caseId = caseEl.id;
+        data.cases[caseId] = {
+          title: getCaseTitle(caseEl),
+          fields: {},
+          checks: {}
+        };
+
+        caseEl.querySelectorAll('textarea[data-case][data-field]').forEach(function (textarea) {
+          data.cases[caseId].fields[textarea.getAttribute('data-field')] = textarea.value;
+        });
+
+        caseEl.querySelectorAll('input[type="checkbox"][data-case][data-field]').forEach(function (input) {
+          data.cases[caseId].checks[input.getAttribute('data-field')] = input.checked;
+        });
+      });
+
+      return data;
+    }
+
+    function applyWork(data) {
+      document.querySelectorAll('textarea[data-case][data-field]').forEach(function (textarea) {
+        var caseId = textarea.getAttribute('data-case');
+        var field = textarea.getAttribute('data-field');
+        var caseData = data.cases && data.cases[caseId];
+        textarea.value = caseData && caseData.fields && typeof caseData.fields[field] === 'string'
+          ? caseData.fields[field]
+          : '';
+        autosize(textarea);
+      });
+
+      document.querySelectorAll('input[type="checkbox"][data-case][data-field]').forEach(function (input) {
+        var caseId = input.getAttribute('data-case');
+        var field = input.getAttribute('data-field');
+        var caseData = data.cases && data.cases[caseId];
+        input.checked = !!(caseData && caseData.checks && caseData.checks[field]);
+      });
+    }
+
+    function validateWork(data) {
+      return !!(
+        data &&
+        data.resource === RESOURCE &&
+        data.version === VERSION &&
+        data.cases &&
+        typeof data.cases === 'object'
+      );
+    }
+
+    function saveLocalWork(message) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(collectWork()));
+        if (message) setStatus(message, 'ok');
+      } catch (error) {
+        setStatus('Could not save locally. Use Download my work to keep a copy.', 'error');
+      }
+    }
+
+    function loadLocalWork() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        var data = JSON.parse(raw);
+        if (!validateWork(data)) return;
+        applyWork(data);
+        setStatus('Restored autosaved work from this browser.', 'ok');
+      } catch (error) {
+        setStatus('Autosaved work could not be restored.', 'error');
+      }
+    }
+
+    function downloadWork() {
+      var data = collectWork();
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'ajanta-case-study-workbook-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      saveLocalWork();
+      setStatus('Downloaded your workbook JSON progress file.', 'ok');
+    }
+
+    function uploadWork(event) {
+      var file = event.target.files && event.target.files[0];
+      if (!file) return;
+      clearTimeout(saveTimer);
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var data = JSON.parse(String(reader.result || ''));
+          if (!validateWork(data)) {
+            setStatus('That file is not a valid Case-Study Workbook progress file.', 'error');
+            return;
+          }
+          applyWork(data);
+          saveLocalWork();
+          setStatus('Uploaded and restored saved workbook progress.', 'ok');
+        } catch (error) {
+          setStatus('Could not read that JSON file. Current answers were not changed.', 'error');
+        } finally {
+          event.target.value = '';
+        }
+      };
+      reader.onerror = function () {
+        setStatus('Could not read that file. Current answers were not changed.', 'error');
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+
+    function clearWork() {
+      if (!confirm('Clear all typed workbook answers and local autosaved progress?')) return;
+      document.querySelectorAll('textarea[data-case][data-field]').forEach(function (textarea) {
+        textarea.value = '';
+        autosize(textarea);
+      });
+      document.querySelectorAll('input[type="checkbox"][data-case][data-field]').forEach(function (input) {
+        input.checked = false;
+      });
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {}
+      setStatus('Cleared typed answers and local autosave.', 'ok');
+    }
+
+    function copyCaseEvaluationPrompt(caseEl, button) {
+      var prompt = buildEvaluationPrompt(caseEl);
+      copyText(prompt, function () {
+        setStatus('Copied ChatGPT evaluation prompt for ' + getCaseTitle(caseEl) + '.', 'ok');
+        flashButton(button);
+      }, function () {
+        setStatus('Could not copy automatically. Select and copy the prompt manually.', 'error');
+      });
+    }
+
+    function buildEvaluationPrompt(caseEl) {
+      var fields = [];
+      caseEl.querySelectorAll('textarea[data-case][data-field]').forEach(function (textarea) {
+        fields.push(textarea.getAttribute('data-label') + ':\n' + valueOrMissing(textarea.value));
+      });
+
+      var checks = [];
+      caseEl.querySelectorAll('input[type="checkbox"][data-case][data-field]').forEach(function (input) {
+        var label = input.getAttribute('data-label').replace(/^Checklist:\s*/, '');
+        checks.push('- ' + label + ': ' + (input.checked ? 'Checked' : 'Not checked'));
+      });
+
+      return [
+        'You are evaluating a participant response from a fictional corporate workshop on advanced prompt engineering.',
+        'Evaluate prompt-engineering quality only. Do not judge pharmaceutical correctness, regulatory compliance, or real-world suitability. Treat all case details as fictional workshop material.',
+        'Mark missing participant fields as gaps. Do not invent answers or assume intent that is not present in the participant inputs.',
+        'Case study: ' + getCaseTitle(caseEl),
+        'Scenario:\n' + valueOrMissing(getSectionText(caseEl, 'Scenario')),
+        'Fictional source input:\n' + valueOrMissing(getSectionText(caseEl, 'Fictional source input')),
+        'Weak prompt:\n' + valueOrMissing(getSectionText(caseEl, 'Weak prompt')),
+        'Participant inputs:\n' + (fields.length ? fields.join('\n\n') : '[Not provided]'),
+        'Output-review checklist state:\n' + (checks.length ? checks.join('\n') : '[Not provided]'),
+        'Use this scoring breakdown, total 100 points:\n' +
+          '- Task framing: 15\n' +
+          '- Source grounding: 15\n' +
+          '- Instructions and output format: 15\n' +
+          '- Constraints and responsible use: 20\n' +
+          '- Clarity and completeness: 15\n' +
+          '- Follow-up/refinement: 10\n' +
+          '- Validation plan: 10',
+        'Return your evaluation in this exact output format:\n' +
+          '1. Overall score: X/100\n' +
+          '2. One-sentence verdict\n' +
+          '3. Score breakdown table with columns: Criterion, Max points, Score, Feedback\n' +
+          '4. Three strengths, citing the participant field labels\n' +
+          '5. Three improvement areas, citing the participant field labels\n' +
+          '6. A rewritten stronger version of the participant improved prompt\n' +
+          '7. One better follow-up prompt\n' +
+          '8. Five-point checklist for the next attempt',
+        'Be specific and practical. Penalise unsupported assumptions, missing constraints, vague audience or role, unclear output format, weak validation, and any instruction that asks the model to invent facts or make decisions outside the source.'
+      ].join('\n\n');
+    }
+
+    function copyText(text, onDone, onError) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onDone, function () {
+          fallbackCopy(text, onDone, onError);
+        });
+      } else {
+        fallbackCopy(text, onDone, onError);
+      }
+    }
+
+    function fallbackCopy(text, onDone, onError) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        onDone();
+      } catch (error) {
+        if (onError) onError(error);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function flashButton(button) {
+      var original = button.innerHTML;
+      button.textContent = 'Copied prompt';
+      setTimeout(function () {
+        button.innerHTML = original;
+      }, 1400);
+    }
+
+    function autosizeAll() {
+      document.querySelectorAll('textarea[data-case][data-field]').forEach(autosize);
+    }
+
+    function autosize(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.max(textarea.scrollHeight, 44) + 'px';
+    }
+
+    function setStatus(message, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.className = 'workbook-status' + (kind ? ' ' + kind : '');
+    }
+
+    function getCaseTitle(caseEl) {
+      var num = caseEl.querySelector('.cs-num');
+      var title = caseEl.querySelector('.cs-head h2');
+      return cleanText((num ? num.textContent + ': ' : '') + (title ? title.textContent : caseEl.id));
+    }
+
+    function getSectionText(caseEl, headingText) {
+      var heading = findHeading(caseEl, headingText);
+      var parts = [];
+      var node = heading ? heading.nextElementSibling : null;
+      while (node && node.tagName.toLowerCase() !== 'h4') {
+        if (!node.classList.contains('case-actions')) {
+          parts.push(textFromNode(node));
+        }
+        node = node.nextElementSibling;
+      }
+      return cleanText(parts.join('\n'));
+    }
+
+    function findHeading(caseEl, headingText) {
+      var headings = caseEl.querySelectorAll('h4');
+      for (var i = 0; i < headings.length; i += 1) {
+        if (cleanText(headings[i].textContent) === headingText) return headings[i];
+      }
+      return null;
+    }
+
+    function findFieldLabel(slot) {
+      var node = slot.previousElementSibling;
+      while (node) {
+        if (/^(h4|p)$/i.test(node.tagName)) {
+          return cleanText(node.textContent).replace(/:$/, '') || 'Participant response';
+        }
+        node = node.previousElementSibling;
+      }
+      return 'Participant response';
+    }
+
+    function textFromNode(node) {
+      var clone = node.cloneNode(true);
+      clone.querySelectorAll('textarea,input,button,.prompt-label,.case-actions').forEach(function (el) {
+        el.remove();
+      });
+      return cleanText(clone.textContent);
+    }
+
+    function valueOrMissing(value) {
+      var text = cleanText(value || '');
+      return text ? text : '[Not provided]';
+    }
+
+    function uniqueField(caseId, label) {
+      var base = slug(label || 'field');
+      var count = fieldCounts[caseId][base] || 0;
+      fieldCounts[caseId][base] = count + 1;
+      return count ? base + '-' + (count + 1) : base;
+    }
+
+    function slug(text) {
+      return cleanText(text)
+        .toLowerCase()
+        .replace(/&/g, 'and')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'field';
+    }
+
+    function cleanText(text) {
+      return String(text || '').replace(/\s+/g, ' ').trim();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initWorkbook);
+    } else {
+      initWorkbook();
+    }
+
+    if (new URLSearchParams(location.search).get('print') === '1') {
+      window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+    }
+  })();
 </script>
 </body>
 </html>
