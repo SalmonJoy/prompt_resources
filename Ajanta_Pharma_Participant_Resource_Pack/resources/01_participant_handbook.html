@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Participant Handbook &middot; Advanced Prompt Engineering with ChatGPT and Gamma AI</title>
+<meta name="description" content="Practical participant handbook for advanced prompt engineering with ChatGPT and Gamma AI.">
+<link rel="stylesheet" href="../assets/screen.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-link no-print" href="../index.html">
+    <svg class="icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor"><use href="../assets/icons.svg#home"></use></svg>
+    Back to resource pack
+  </a>
+
+  <header class="doc-header">
+    <div class="eyebrow">Resource 01 &middot; Participant Handbook</div>
+    <h1>Advanced Prompt Engineering with ChatGPT and Gamma AI</h1>
+    <p>Your complete, practical reference for the workshop. Keep this handbook at your desk and use it as a
+    working manual, not a one-time read. Every technique includes a weak prompt, an improved prompt, a
+    follow-up prompt, a workplace example, a short exercise and a point to remember.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button type="button" class="btn" onclick="window.print()">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
+      Print this resource
+    </button>
+    <a class="btn secondary" href="../index.html">All resources</a>
+  </div>
+
+  <!-- ============================== TOC ============================== -->
+  <section class="card">
+    <h2 style="margin-top:0">Contents</h2>
+    <div class="toc">
+      <ol>
+        <li><a href="#s1">Workshop overview</a></li>
+        <li><a href="#s2">Learning objectives</a></li>
+        <li><a href="#s3">The three advanced themes</a></li>
+        <li><a href="#s4">The advanced prompt framework</a></li>
+        <li><a href="#s5">Task framing and requirement clarification</a></li>
+        <li><a href="#s6">Breaking complex tasks into stages</a></li>
+        <li><a href="#s7">Asking ChatGPT clarifying questions</a></li>
+        <li><a href="#s8">Context engineering</a></li>
+        <li><a href="#s9">Source-grounded prompting</a></li>
+        <li><a href="#s10">Positive and negative constraints</a></li>
+        <li><a href="#s11">Audience-aware prompting</a></li>
+        <li><a href="#s12">Example-based prompting</a></li>
+        <li><a href="#s13">Structured output prompting</a></li>
+        <li><a href="#s14">Multi-step prompt workflows</a></li>
+        <li><a href="#s15">Generate&ndash;Critique&ndash;Improve&ndash;Validate&ndash;Finalise</a></li>
+        <li><a href="#s16">Using evaluation rubrics</a></li>
+        <li><a href="#s17">Creating multiple versions</a></li>
+        <li><a href="#s18">Adapting content for different audiences</a></li>
+        <li><a href="#s19">Identifying unsupported assumptions</a></li>
+        <li><a href="#s20">Common prompting mistakes</a></li>
+        <li><a href="#s21">Hallucination and factual-verification risks</a></li>
+        <li><a href="#s22">Responsible workplace use</a></li>
+        <li><a href="#s23">ChatGPT-to-Gamma workflow</a></li>
+        <li><a href="#s24">Reusable templates</a></li>
+        <li><a href="#s25">Post-training practice plan</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================== 1 ============================== -->
+  <section class="section page-break" id="s1">
+    <h2><span class="section-num">1</span>Workshop overview</h2>
+    <p>This is a 3.5-hour advanced workshop. It assumes you already use ChatGPT and does not repeat a basic
+    introduction to generative AI. Instead, it focuses on the skills that separate an average prompt from a
+    reliable, workplace-ready one: framing the task, grounding the model in the right information, and
+    engineering the result through critique, refinement and validation.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>How the time is used</h3>
+        <table>
+          <tbody>
+            <tr><th>3 hours</th><td>Advanced prompt engineering with ChatGPT</td></tr>
+            <tr><th>30 minutes</th><td>Creating presentations with Gamma AI</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Who this is for</h3>
+        <p>Non-technical and semi-technical professionals across Manufacturing, QA/QC, R&amp;D, HR, L&amp;D,
+        IT, Administration, Supply Chain, Finance and other corporate departments. No coding knowledge is
+        required at any point.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>How to use this handbook</h3>
+      <ul>
+        <li>During the workshop: follow along with the techniques as they are demonstrated.</li>
+        <li>During exercises: use the weak / improved / follow-up patterns as models for your own prompts.</li>
+        <li>After the workshop: keep it as a desk reference; return to the framework and templates often.</li>
+        <li>In practice: prefer fictional or sanitised examples until you know what is approved for AI use.</li>
+      </ul>
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      A better prompt is not a longer prompt. It is a clearer instruction, grounded in the right information,
+      with the output and the checks defined in advance.
+    </div>
+  </section>
+
+  <!-- ============================== 2 ============================== -->
+  <section class="section page-break" id="s2">
+    <h2><span class="section-num">2</span>Learning objectives</h2>
+    <p>By the end of this workshop you should be able to:</p>
+    <ul>
+      <li>Frame a workplace request as a clear, solvable task before prompting.</li>
+      <li>Supply the right context and approved source information, and keep it separate from your instructions.</li>
+      <li>Use positive and negative constraints to control what ChatGPT includes, excludes and assumes.</li>
+      <li>Specify the structure, length and tone of the output in advance.</li>
+      <li>Run a multi-step workflow: generate, critique, improve, validate and finalise.</li>
+      <li>Adapt the same content for different audiences without rewriting from scratch.</li>
+      <li>Recognise hallucination risks and verify facts before use.</li>
+      <li>Apply responsible-use rules consistently, using fictional or sanitised examples for practice.</li>
+      <li>Turn a reviewed ChatGPT outline into a Gamma presentation efficiently.</li>
+    </ul>
+    <div class="box tip">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#target"></use></svg>Set your own goal</div>
+      Pick one repetitive task you do every week. Aim to leave the workshop with a reusable, reviewed prompt
+      for exactly that task.
+    </div>
+  </section>
+
+  <!-- ============================== 3 ============================== -->
+  <section class="section page-break" id="s3">
+    <h2><span class="section-num">3</span>The three advanced themes</h2>
+    <p>Everything in this handbook is organised around three themes. Together they form the workshop model:
+    <strong>Frame the Problem &rarr; Ground the Model &rarr; Engineer the Result</strong>.</p>
+
+    <div class="card">
+      <h3>Theme 1 &middot; Architect the Task</h3>
+      <p>Identify the real business objective, define the audience, describe the expected result, break
+      complex requirements into stages, identify missing information, control assumptions, and ask ChatGPT to
+      clarify the requirement before it answers.</p>
+      <p><strong>Key message:</strong> &ldquo;Frame the problem before asking AI to solve it.&rdquo;</p>
+    </div>
+    <div class="card">
+      <h3>Theme 2 &middot; Engineer the Context</h3>
+      <p>Provide relevant background, supply approved source information, separate instructions from source
+      content, use positive and negative constraints, provide examples when useful, define instruction
+      priorities, and reduce hallucination and unsupported assumptions.</p>
+      <p><strong>Key message:</strong> &ldquo;Control the information environment, not only the wording of the
+      prompt.&rdquo;</p>
+    </div>
+    <div class="card">
+      <h3>Theme 3 &middot; Orchestrate the Output</h3>
+      <p>Generate an initial draft, evaluate it against specific criteria, critique its weaknesses, refine it
+      through follow-up prompts, adapt content for different audiences, check factual support, and validate the
+      final output before use.</p>
+      <p><strong>Key message:</strong> &ldquo;The first response is generated. The desired response is
+      engineered.&rdquo;</p>
+    </div>
+    <div class="box tip">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#flow"></use></svg>How the themes work together</div>
+      Theme 1 decides <em>what</em> you are asking for. Theme 2 decides <em>what information</em> the model may
+      use. Theme 3 decides <em>how</em> you turn a draft into something you trust. Skipping any one of them is
+      the usual reason workplace outputs feel generic, inaccurate or unfinished.
+    </div>
+  </section>
+
+  <!-- ============================== 4 ============================== -->
+  <section class="section page-break" id="s4">
+    <h2><span class="section-num">4</span>The advanced prompt framework</h2>
+    <p>Use these ten elements as your mental checklist. You will not need every element every time, but the
+    more of them you include deliberately, the more reliable the output.</p>
+    <ol class="fw-list">
+      <li><b>1. Goal</b> What business outcome is required?</li>
+      <li><b>2. Role</b> What perspective should ChatGPT adopt?</li>
+      <li><b>3. Context</b> What background does ChatGPT need?</li>
+      <li><b>4. Source input</b> What information should ChatGPT use?</li>
+      <li><b>5. Audience</b> Who will read or use the output?</li>
+      <li><b>6. Instructions</b> What specific actions should ChatGPT perform?</li>
+      <li><b>7. Constraints</b> What must be included, excluded, limited or not assumed?</li>
+      <li><b>8. Output format</b> What structure, length, tone and detail are required?</li>
+      <li><b>9. Quality criteria</b> What characteristics define a good output?</li>
+      <li><b>10. Validation</b> What must be checked before using the output?</li>
+    </ol>
+
+    <h3>The reusable prompt structure</h3>
+    <p>This structure appears throughout the pack. Copy it, then replace the bracketed placeholders.</p>
+    <div class="prompt">
+      <span class="prompt-label">Reusable structure</span>Act as [ROLE].
+
+Goal:
+[DESIRED BUSINESS OUTCOME]
+
+Context:
+[RELEVANT BACKGROUND]
+
+Source information:
+Use only the information enclosed within the source tags.
+
+&lt;source&gt;
+[SOURCE INFORMATION]
+&lt;/source&gt;
+
+Audience:
+[INTENDED AUDIENCE]
+
+Instructions:
+- [ACTION 1]
+- [ACTION 2]
+- [ACTION 3]
+
+Constraints:
+- Do not add unsupported information.
+- Clearly identify missing information.
+- Do not make unverified assumptions.
+- [ADDITIONAL CONSTRAINT]
+
+Output format:
+[REQUIRED STRUCTURE]
+
+Tone:
+[REQUIRED TONE]
+
+Quality criteria:
+- [CRITERION 1]
+- [CRITERION 2]
+- [CRITERION 3]
+
+Before finalising:
+Check the response for unsupported claims, missing information,
+instruction compliance, clarity and audience suitability.</div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      The framework is a checklist, not a script. Keep the labels (Goal, Context, Source, and so on) so both
+      you and ChatGPT can see the structure clearly.
+    </div>
+  </section>
+
+  <!-- ============================== 5 ============================== -->
+  <section class="section page-break" id="s5">
+    <h2><span class="section-num">5</span>Task framing and requirement clarification</h2>
+
+    <h4>What it means</h4>
+    <p>Framing means turning a vague request into a precise task: naming the real objective, the audience and
+    what a successful output looks like, before you write a single instruction.</p>
+    <h4>When to use it</h4>
+    <p>Always &mdash; but especially when the request came to you as one line (&ldquo;send something to the
+    team about the delay&rdquo;) or when several people will read the output.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write something about the line stoppage.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Act as a production coordinator.
+Goal: Inform the packing team about a planned two-hour stoppage on a packing line so they can adjust their schedule.
+Audience: Shift operators and the shift in-charge.
+Write a short internal note (120-150 words) covering: what is happening, when, the expected impact, and what the team should do in the meantime.
+Constraints: Do not invent a cause or a restart time. If either is unknown, mark it clearly as "to be confirmed".</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Good. Now add a one-line summary at the top that a supervisor could read in five seconds, and flag any information I still need to confirm before sending.</div>
+
+    <h4>Workplace example</h4>
+    <p>A fictional packing-line coordinator receives &ldquo;tell the team about the stoppage.&rdquo; After framing,
+    the real task is: inform operators and the shift in-charge of a planned two-hour pause, what they should do
+    meanwhile, and what remains unconfirmed. The framed prompt produces a short note that a busy floor can act on
+    without inventing a cause or restart time.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Take a request you received this week as a single sentence. Write down its real objective, its audience,
+      and one sentence describing a successful output. Only then draft the prompt.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      If you cannot describe a good output in one sentence, ChatGPT cannot either. Frame first.
+    </div>
+  </section>
+
+  <!-- ============================== 6 ============================== -->
+  <section class="section page-break" id="s6">
+    <h2><span class="section-num">6</span>Breaking complex tasks into stages</h2>
+    <h4>What it means</h4>
+    <p>Splitting a large request into smaller, ordered steps so each step is easy to check before moving on.</p>
+    <h4>When to use it</h4>
+    <p>When a task has several parts (analyse, then draft, then format), or when a single prompt keeps producing
+    output that is partly right and partly wrong.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Analyse these meeting notes and give me the full minutes, an action tracker, and a management summary.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>We will work in three steps and I will confirm each before the next.
+Step 1: From the notes below, list every decision and every action item with an owner. Ask me about anything ambiguous instead of guessing.
+&lt;source&gt;[PASTE NOTES]&lt;/source&gt;</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Confirmed. Step 2: Turn the confirmed list into formal minutes with sections Attendees, Decisions, Actions (owner and due date), and Open questions.</div>
+
+    <h4>Workplace example</h4>
+    <p>A fictional cross-functional meeting produced messy notes covering decisions, actions and open questions.
+    Asking for minutes, an action tracker and a management summary in one prompt mixed errors across all three.
+    Staging the work &mdash; extract first, confirm, then format &mdash; kept each deliverable accurate.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Write down a three-step plan for a report you produce regularly. Decide what you will check at the end of
+      each step before continuing.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Small steps are easier to verify. Confirm each stage before you build on it.
+    </div>
+  </section>
+
+  <!-- ============================== 7 ============================== -->
+  <section class="section page-break" id="s7">
+    <h2><span class="section-num">7</span>Asking ChatGPT clarifying questions</h2>
+    <h4>What it means</h4>
+    <p>Instructing ChatGPT to ask you questions before it answers, so it fills gaps with your information rather
+    than its assumptions.</p>
+    <h4>When to use it</h4>
+    <p>At the start of any non-trivial task, or whenever you are not sure you have given enough detail.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Draft a policy communication about the new leave process.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>I need to draft a policy communication about a new leave-application process. Before you write anything, ask me up to five questions that would materially change the draft (audience, effective date, what is changing, tone, and length). Wait for my answers.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Here are my answers: [ANSWERS]. Now draft the communication using only these details, and mark anything you still had to assume.</div>
+
+    <h4>Workplace example</h4>
+    <p>An HR colleague preparing a fictional leave-process update asked ChatGPT to interview them first. The model
+    asked about effective date, who must apply the new process, exceptions, and tone. Those answers prevented a
+    polished draft that would have invented an effective date.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Ask ChatGPT to interview you before drafting a routine email. Note which of its questions you had not
+      thought about.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      A few good questions up front prevent a confident but wrong answer later.
+    </div>
+  </section>
+
+  <!-- ============================== 8 ============================== -->
+  <section class="section page-break" id="s8">
+    <h2><span class="section-num">8</span>Context engineering</h2>
+    <h4>What it means</h4>
+    <p>Deliberately shaping the information environment: what background you give, what you exclude, and how you
+    organise it &mdash; not just how you word the request.</p>
+    <h4>When to use it</h4>
+    <p>Whenever the quality of the answer depends on facts ChatGPT would not otherwise know, such as your
+    situation, your constraints or your existing material.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write a status update for my project.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Context: This is a weekly status update for an internal system-upgrade project. Last week we completed user testing; this week we are preparing training; a vendor dependency is delayed by a few days. The reader is a steering group that wants risks and decisions, not detail.
+Write a one-page update with sections: Progress, Risks, Decisions needed, Next week.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Tighten the Risks section so each risk has an impact and a proposed mitigation, and remove anything that is just routine progress.</div>
+
+    <h4>Workplace example</h4>
+    <p>An IT project lead drafting a fictional weekly steering update added two lines of context: testing is done,
+    training is next, and a vendor delay of a few days is the main risk. With that background, the draft focused on
+    decisions rather than inventing a full project history.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Rewrite one of your recent prompts by adding a two-line context paragraph. Compare the two outputs.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Control the information environment, not only the wording of the prompt.
+    </div>
+  </section>
+
+  <!-- ============================== 9 ============================== -->
+  <section class="section page-break" id="s9">
+    <h2><span class="section-num">9</span>Source-grounded prompting</h2>
+    <h4>What it means</h4>
+    <p>Giving ChatGPT the exact material it should rely on and instructing it to use only that material, clearly
+    separated from your instructions using tags.</p>
+    <h4>When to use it</h4>
+    <p>For summaries, rewrites and extractions where accuracy to a specific document matters. This is one of the
+    strongest ways to reduce invented detail.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Summarise our returns policy.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Summarise the returns policy below in five bullet points for a new team member.
+Use only the information inside the source tags. If the policy does not cover something, say "not specified in the source" rather than filling the gap.
+&lt;source&gt;
+[PASTE THE APPROVED POLICY TEXT]
+&lt;/source&gt;</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>List any questions a new team member might ask that the source does not answer, so I can raise them with the policy owner.</div>
+
+    <h4>Workplace example</h4>
+    <p>An L&amp;D facilitator summarised a fictional, approved visitor-badge procedure for new joiners. With source
+    tags and a &ldquo;use only this source&rdquo; constraint, the summary stayed faithful. Without them, the draft
+    invented a visitor escort rule that was never in the document.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Take a short, non-confidential document and summarise it twice: once without source tags and once with
+      them. Note the difference in invented detail.
+    </div>
+    <div class="box warning">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#warning"></use></svg>Responsible use</div>
+      Only paste information that is approved for use in a public AI tool. Use fictional or sanitised text when
+      practising.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      &ldquo;Use only the information in the source&rdquo; is one of the most useful sentences in prompting.
+    </div>
+  </section>
+
+  <!-- ============================== 10 ============================== -->
+  <section class="section page-break" id="s10">
+    <h2><span class="section-num">10</span>Positive and negative constraints</h2>
+    <h4>What it means</h4>
+    <p>Positive constraints say what must be included; negative constraints say what must be excluded, limited or
+    not assumed.</p>
+    <h4>When to use it</h4>
+    <p>When outputs drift off-topic, become too long, adopt the wrong tone, or add claims you cannot support.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write an announcement about the office move.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Write a staff announcement about an office move.
+Must include: the move date, the new location name, and who to contact with questions.
+Must not include: specific desk allocations, any commitments about parking, or any date I have not given you.
+Keep it under 150 words and neutral in tone.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Add a short reassuring closing line, but do not promise anything beyond the facts above.</div>
+
+    <h4>Workplace example</h4>
+    <p>Facilities drafted a fictional office-move announcement. Positive constraints forced inclusion of the move
+    date, location name and contact. Negative constraints blocked desk allocations and parking promises that had
+    not been decided. The result was short, useful and safe to send.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      List three &ldquo;must include&rdquo; and three &ldquo;must not include&rdquo; items for a message you send
+      often. Turn them into constraints.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Telling ChatGPT what <em>not</em> to do is as powerful as telling it what to do.
+    </div>
+  </section>
+
+  <!-- ============================== 11 ============================== -->
+  <section class="section page-break" id="s11">
+    <h2><span class="section-num">11</span>Audience-aware prompting</h2>
+    <h4>What it means</h4>
+    <p>Naming exactly who will read the output so ChatGPT can match vocabulary, detail and tone to that reader.</p>
+    <h4>When to use it</h4>
+    <p>Any time the same information must reach different readers &mdash; operators, managers, or an external
+    audience.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Explain the new scheduling tool.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Explain the new scheduling tool in two versions.
+Version A for shop-floor operators: plain language, focus on what changes in their daily routine, under 120 words.
+Version B for department heads: focus on benefits and the rollout timeline, under 120 words.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Now produce a third version for an all-staff email that combines the key points without repeating them.</div>
+
+    <h4>Workplace example</h4>
+    <p>A supply-chain team explained a fictional new scheduling tool. The operator version focused on daily
+    routine changes; the department-head version focused on benefits and rollout timing. Same facts, different
+    emphasis &mdash; and neither version invented features.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Take one message and ask for two audience versions. Compare how the wording changes.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      &ldquo;Who is reading this?&rdquo; changes the answer more than almost any other instruction.
+    </div>
+  </section>
+
+  <!-- ============================== 12 ============================== -->
+  <section class="section page-break" id="s12">
+    <h2><span class="section-num">12</span>Example-based prompting</h2>
+    <h4>What it means</h4>
+    <p>Showing ChatGPT one or two short examples of the style or structure you want, so it matches your pattern
+    instead of guessing.</p>
+    <h4>When to use it</h4>
+    <p>When you have a house style, a preferred format, or a &ldquo;good&rdquo; example you want future outputs
+    to resemble.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write a handover note.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Write a handover note in the same style as this example. Match the headings and the level of detail.
+Example:
+"Status: On track. Open items: 2 (see below). Watch-outs: vendor call pending. Next: confirm delivery slot."
+Now write one for today using these facts: [FACTS].</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Shorten each line to a single sentence and keep the same four headings.</div>
+
+    <h4>Workplace example</h4>
+    <p>A manufacturing supervisor pasted a short fictional handover example with four headings &mdash; Status,
+    Open items, Watch-outs, Next &mdash; and asked ChatGPT to match that pattern for today&rsquo;s facts. The
+    output needed almost no reformatting before use.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Find one output you are happy with. Paste a shortened version as an example and ask ChatGPT to match it.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      One good example is often clearer than three sentences of description.
+    </div>
+  </section>
+
+  <!-- ============================== 13 ============================== -->
+  <section class="section page-break" id="s13">
+    <h2><span class="section-num">13</span>Structured output prompting</h2>
+    <h4>What it means</h4>
+    <p>Telling ChatGPT the exact shape of the output &mdash; a table with named columns, a fixed set of headings,
+    a word limit, or a numbered list.</p>
+    <h4>When to use it</h4>
+    <p>Whenever the output will be reused, compared or pasted into another document or template.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Give me the pros and cons of the two options.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Compare Option A and Option B in a table with these columns: Criterion, Option A, Option B, Notes.
+Use these rows: Cost, Time to implement, Effort required, Main risk.
+Keep each cell under 15 words. After the table, add a one-line neutral summary.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Add a "Recommendation to discuss" row, but frame it as an option for human decision, not a final decision.</div>
+
+    <h4>Workplace example</h4>
+    <p>Finance asked for a comparison of two fictional vendor options. Specifying a table with columns Criterion,
+    Option A, Option B and Notes produced a reusable comparison. A free-form &ldquo;pros and cons&rdquo; list had
+    been harder to paste into a briefing pack.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Rewrite a recent request so it specifies a table or a fixed set of headings. Note how much easier the
+      output is to reuse.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      If you know the shape of the answer, describe it. ChatGPT is good at filling a structure you define.
+    </div>
+  </section>
+
+  <!-- ============================== 14 ============================== -->
+  <section class="section page-break" id="s14">
+    <h2><span class="section-num">14</span>Multi-step prompt workflows</h2>
+    <h4>What it means</h4>
+    <p>Using a sequence of connected prompts, where each response becomes the input for the next, instead of
+    trying to get everything from one prompt.</p>
+    <h4>When to use it</h4>
+    <p>For anything you want to polish: drafts that need structure, then tone, then a final tidy-up.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Turn these bullet points into a perfect department update that is structured, managerial and ready to send.</div>
+    <div class="prompt improved"><span class="prompt-label">Workflow &middot; four connected prompts</span>1) Draft: "Draft a department update from these bullet points: [POINTS]."
+2) Structure: "Reorganise into Progress, Risks, Next steps. Remove repetition."
+3) Tone: "Make it concise and professional for a manager. Keep it under 200 words."
+4) Final: "Give me the final clean version with a one-line summary at the top."</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>List anything in this final version that I should verify myself before sending.</div>
+
+    <h4>Workplace example</h4>
+    <p>An administration lead turned rough fictional bullets about a facilities upgrade into a manager update by
+    running draft &rarr; structure &rarr; tone &rarr; final. Each step was easier to check than one overloaded
+    prompt that tried to do everything at once.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Take one document through the four steps above. Notice which step improved it most.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Polish comes through conversation, not a single perfect prompt.
+    </div>
+  </section>
+
+  <!-- ============================== 15 ============================== -->
+  <section class="section page-break" id="s15">
+    <h2><span class="section-num">15</span>The Generate&ndash;Critique&ndash;Improve&ndash;Validate&ndash;Finalise workflow</h2>
+    <h4>What it means</h4>
+    <p>This five-stage cycle is the core of Theme 3. You generate a draft, critique it against criteria, improve
+    it, validate the facts yourself, then finalise. Apply it to any output that matters.</p>
+    <h4>When to use it</h4>
+    <p>Whenever the output will be shared, filed, or used to brief others &mdash; and whenever the first draft is
+    &ldquo;almost right&rdquo; but not yet trustworthy.</p>
+    <ol class="steps">
+      <li><strong>Generate</strong> &mdash; produce a first draft with a well-framed prompt.</li>
+      <li><strong>Critique</strong> &mdash; ask ChatGPT to critique its own draft against your criteria.</li>
+      <li><strong>Improve</strong> &mdash; ask it to rewrite, fixing the weaknesses it just identified.</li>
+      <li><strong>Validate</strong> &mdash; check facts, references and instruction compliance yourself.</li>
+      <li><strong>Finalise</strong> &mdash; request the clean final version and do a last human read.</li>
+    </ol>
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Make this draft better.</div>
+    <div class="prompt improved"><span class="prompt-label">Critique prompt</span>Critique your previous draft against these criteria: instruction compliance, factual support, clarity, and suitability for the audience. List the three weakest points. Do not rewrite it yet.</div>
+    <div class="prompt followup"><span class="prompt-label">Improve prompt</span>Now rewrite the draft to fix those three points. Keep everything that was already working.</div>
+
+    <h4>Workplace example</h4>
+    <p>QA used a fictional observation summary through this cycle. Critique revealed an unsupported severity
+    claim and a missing open item. Improve removed the claim and restored the item. Validate confirmed every
+    line against the notes before the summary was shared for discussion &mdash; not as an official conclusion.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Take one draft through all five stages. Write down what changed at Critique and what you personally
+      checked at Validate.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      The first response is generated. The desired response is engineered.
+    </div>
+  </section>
+
+  <!-- ============================== 16 ============================== -->
+  <section class="section page-break" id="s16">
+    <h2><span class="section-num">16</span>Using evaluation rubrics</h2>
+    <h4>What it means</h4>
+    <p>Defining, in advance, the criteria a good output must meet, then scoring the draft against them.</p>
+    <h4>When to use it</h4>
+    <p>For repeated outputs where you want consistent quality, or when several people judge &ldquo;good&rdquo;
+    differently.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Is this good enough?</div>
+    <div class="prompt improved"><span class="prompt-label">Rubric prompt</span>Evaluate the draft against this rubric and give each a rating of Strong, Adequate or Weak with one reason:
+- Follows all instructions
+- Uses only supported information
+- Clear for the stated audience
+- Correct structure and length
+- Appropriate tone
+Then list the single most important fix.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Apply only the most important fix and show the updated section.</div>
+
+    <h4>Workplace example</h4>
+    <p>An L&amp;D designer scored a fictional session outline against a five-line rubric before sharing it with a
+    facilitator. The rubric flagged weak learning objectives; one targeted fix raised the quality without a full
+    rewrite.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Write a five-line rubric for a document you produce weekly. Use it to score your next AI draft.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      A rubric turns &ldquo;make it better&rdquo; into specific, checkable improvements.
+    </div>
+  </section>
+
+  <!-- ============================== 17 ============================== -->
+  <section class="section page-break" id="s17">
+    <h2><span class="section-num">17</span>Creating multiple versions</h2>
+    <h4>What it means</h4>
+    <p>Asking for several distinct options at once, then combining or choosing, instead of settling for the first
+    attempt.</p>
+    <h4>When to use it</h4>
+    <p>For subject lines, openings, summaries, or any wording where you want choice.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write a subject line for this email.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Give me five subject lines for this email: two neutral, two more direct, one very short. Keep each under 8 words. Then recommend which suits a busy manager and why.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Combine the best parts of options 2 and 5 into one final subject line.</div>
+
+    <h4>Workplace example</h4>
+    <p>IT needed a subject line for a fictional password-reset service notice. Asking for five options (neutral,
+    direct, short) gave a clear choice. Combining the best two produced a line managers actually opened.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Ask for three openings for your next update and pick the strongest to build on.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Options are cheap to generate. Ask for a few and choose deliberately.
+    </div>
+  </section>
+
+  <!-- ============================== 18 ============================== -->
+  <section class="section page-break" id="s18">
+    <h2><span class="section-num">18</span>Adapting content for different audiences</h2>
+    <h4>What it means</h4>
+    <p>Reusing one reviewed piece of content and reshaping it for a new reader, length or channel.</p>
+    <h4>When to use it</h4>
+    <p>When the same message must go to operators, managers and an all-staff channel.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Rewrite this for everyone.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Here is an approved paragraph: [PASTE]. Produce three adaptations without adding new facts:
+1) A two-line operator instruction.
+2) A short manager summary focused on impact.
+3) A one-sentence notice-board line.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Check that none of the three versions introduced any detail that was not in the original paragraph.</div>
+
+    <h4>Workplace example</h4>
+    <p>R&amp;D adapted a short, fictional, already-reviewed technical note into an operator instruction, a manager
+    summary and a notice-board line. Because the source paragraph was fixed, none of the adaptations invented new
+    technical claims.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Take one approved paragraph and produce three audience adaptations. Confirm no new facts crept in.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Adapt reviewed content; do not regenerate facts each time.
+    </div>
+  </section>
+
+  <!-- ============================== 19 ============================== -->
+  <section class="section page-break" id="s19">
+    <h2><span class="section-num">19</span>Identifying unsupported assumptions</h2>
+    <h4>What it means</h4>
+    <p>Spotting where ChatGPT has filled a gap with a guess presented as fact, and forcing those gaps into the
+    open.</p>
+    <h4>When to use it</h4>
+    <p>Before using any output that contains numbers, names, dates, references or specific claims.</p>
+
+    <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Clean this up and fill in anything missing.</div>
+    <div class="prompt improved"><span class="prompt-label">Improved prompt</span>Review your draft and mark every statement that is not directly supported by the source I gave you. For each, say whether it is an assumption, a generalisation, or a possible error. Do not fix them yet &mdash; just list them.</div>
+    <div class="prompt followup"><span class="prompt-label">Follow-up prompt</span>Rewrite the draft so that unsupported statements are either removed or clearly marked as "to be confirmed".</div>
+
+    <h4>Workplace example</h4>
+    <p>A meeting secretary noticed a fictional minutes draft had invented an owner for an open action. Asking the
+    model to list unsupported statements surfaced the invented owner before the minutes were circulated.</p>
+
+    <div class="box exercise">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Exercise</div>
+      Ask ChatGPT to flag its own unsupported statements in a recent draft. Decide which to remove and which to
+      verify.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Make assumptions visible. A marked gap is safe; a hidden one is not.
+    </div>
+  </section>
+
+  <!-- ============================== 20 ============================== -->
+  <section class="section page-break" id="s20">
+    <h2><span class="section-num">20</span>Common prompting mistakes</h2>
+    <table>
+      <thead><tr><th>Mistake</th><th>Why it hurts</th><th>Better habit</th></tr></thead>
+      <tbody>
+        <tr><td>One-line vague requests</td><td>Generic, unusable output</td><td>Frame goal, audience and format first</td></tr>
+        <tr><td>Mixing instructions and source text</td><td>ChatGPT treats your data as commands</td><td>Separate source using tags</td></tr>
+        <tr><td>No constraints</td><td>Output drifts, over-long, adds claims</td><td>State must-include and must-exclude</td></tr>
+        <tr><td>Accepting the first draft</td><td>Misses avoidable errors</td><td>Critique, improve, validate</td></tr>
+        <tr><td>Not naming the audience</td><td>Wrong tone and detail level</td><td>Name the reader explicitly</td></tr>
+        <tr><td>Trusting numbers and references</td><td>Hallucinated facts slip through</td><td>Verify every figure and citation</td></tr>
+        <tr><td>Asking for a decision</td><td>Shifts human accountability to a tool</td><td>Ask for options; you decide</td></tr>
+        <tr><td>Skipping human review</td><td>Errors reach colleagues or records</td><td>Treat every AI output as a draft</td></tr>
+        <tr><td>Uploading sensitive material</td><td>Policy and confidentiality risk</td><td>Use approved or fictional practice data</td></tr>
+        <tr><td>No output format</td><td>Hard to reuse or compare</td><td>Specify headings, table or length</td></tr>
+        <tr><td>Overloading one prompt</td><td>Partly right, partly wrong</td><td>Break into stages and confirm each</td></tr>
+      </tbody>
+    </table>
+    <p>When an output disappoints, diagnose the prompt before blaming the tool. Ask: Was the goal clear? Was the
+    audience named? Was the source enclosed? Were constraints stated? Was the format defined? Would a critique
+    step have caught the issue?</p>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Most weak outputs come from weak inputs, not from a weak model.
+    </div>
+  </section>
+
+  <!-- ============================== 21 ============================== -->
+  <section class="section page-break" id="s21">
+    <h2><span class="section-num">21</span>Hallucination and factual-verification risks</h2>
+    <h4>What it means</h4>
+    <p>A hallucination is when ChatGPT states something incorrect with full confidence &mdash; an invented figure,
+    a plausible-sounding reference, or a detail that was never in your source.</p>
+    <h4>Why it happens</h4>
+    <p>The model predicts likely text; it does not know what is true, and it does not have real-time knowledge of
+    recent changes. Confidence in the wording is not evidence of accuracy.</p>
+    <h4>How to reduce and catch it</h4>
+    <ul>
+      <li>Ground the prompt in an approved source and instruct &ldquo;use only this source&rdquo;.</li>
+      <li>Ask it to mark anything not supported by the source.</li>
+      <li>Independently verify every figure, name, date and reference.</li>
+      <li>Treat references and citations as unverified until you have checked them.</li>
+      <li>Keep uncertainty visible rather than letting the draft smooth it over.</li>
+      <li>Prefer &ldquo;to be confirmed&rdquo; over a plausible invented detail.</li>
+      <li>Never ask ChatGPT to invent missing owners, dates, root causes or approvals.</li>
+    </ul>
+    <div class="card">
+      <h3>Quick verification habit</h3>
+      <p>Before you send or file an AI-assisted draft, underline every concrete claim (number, name, date,
+      reference, cause). For each underline, ask: Where did this come from &mdash; my source, my knowledge, or
+      the model? If you cannot answer, verify or remove it.</p>
+    </div>
+    <div class="box danger">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#warning"></use></svg>Do not rely on ChatGPT as an authority</div>
+      ChatGPT must not be treated as an authority for regulatory, quality, clinical, financial or legal
+      decisions. Those require qualified human judgement and approved processes.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Confident wording is not proof. Verify before you use.
+    </div>
+  </section>
+
+  <!-- ============================== 22 ============================== -->
+  <section class="section page-break" id="s22">
+    <h2><span class="section-num">22</span>Responsible workplace use</h2>
+    <p>Responsible use protects you, your colleagues and your organisation. Apply these principles every time.
+    This section is workshop guidance, not an official company policy.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Core principles</h3>
+        <ul>
+          <li>AI output is a draft unless reviewed.</li>
+          <li>Human subject-matter experts remain responsible.</li>
+          <li>Important facts must be independently verified.</li>
+          <li>Internal company policy takes precedence.</li>
+          <li>Use fictional and anonymised examples when practising.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Keep out of public AI tools without approval</h3>
+        <p>Confidential, personal, proprietary, audit-sensitive, clinical, formula-related, regulatory or
+        credential information must not be entered into public AI tools without organisational approval. When in
+        doubt, ask before you paste.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Safer practice habits</h3>
+      <ul>
+        <li>Practise with fictional scenarios from Resources 05 and 06.</li>
+        <li>Anonymise names, batch identifiers and site details before any practice upload.</li>
+        <li>Do not ask ChatGPT for CAPA decisions, GMP approvals, clinical conclusions or regulatory advice.</li>
+        <li>Keep final accountability with the human user and approved processes.</li>
+      </ul>
+    </div>
+    <div class="box warning">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Policy precedence</div>
+      This handbook provides general workshop guidance. Your organisation&rsquo;s approved information-security,
+      data-privacy, quality, regulatory and AI-usage policies take precedence. See Resource 04 for the full
+      responsible-AI checklist.
+    </div>
+  </section>
+
+  <!-- ============================== 23 ============================== -->
+  <section class="section page-break" id="s23">
+    <h2><span class="section-num">23</span>ChatGPT-to-Gamma workflow</h2>
+    <p>Gamma AI turns an outline into a designed presentation quickly. The reliable pattern is to build and review
+    the content in ChatGPT first, then generate the deck in Gamma. Design cannot repair inaccurate or unordered
+    content &mdash; so do the thinking before you generate slides.</p>
+    <ol class="steps">
+      <li>Define the presentation objective and the single message the audience should remember.</li>
+      <li>Identify the audience and the number of slides or cards.</li>
+      <li>Ask ChatGPT for a slide-by-slide outline (title, one key message, up to three points, a suggested visual).</li>
+      <li>Review the outline for facts, logical flow and duplication.</li>
+      <li>Convert the outline into short Gamma-ready lines (under 12 words per bullet where possible).</li>
+      <li>Paste the reviewed outline into Gamma to generate the presentation.</li>
+      <li>Choose a suitable theme, edit layouts, replace unsuitable visuals and reduce excess text.</li>
+      <li>Check consistency of terminology, tone and capitalisation across cards.</li>
+      <li>Do a final human review before sharing or exporting.</li>
+    </ol>
+    <div class="box tip">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#presentation"></use></svg>Full detail in Resource 07</div>
+      The ChatGPT-to-Gamma Quick Guide contains the complete 13-step workflow, a reusable prompt, a six-slide
+      sample structure and pre- and post-Gamma checklists.
+    </div>
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      The outline leads; the template follows. Never let a theme decide your storyline.
+    </div>
+  </section>
+
+  <!-- ============================== 24 ============================== -->
+  <section class="section page-break" id="s24">
+    <h2><span class="section-num">24</span>Reusable templates</h2>
+    <p>Keep these five templates handy. The full library of 30+ prompts is in Resource 05. Replace every
+    bracketed placeholder before you run a template, and only paste information that is approved for AI use.</p>
+
+    <h3>Template A &middot; Draft a workplace communication</h3>
+    <div class="prompt"><span class="prompt-label">Template</span>Act as [ROLE].
+Goal: [WHAT THE READER SHOULD KNOW OR DO].
+Audience: [READER].
+Write a [FORMAT] of about [LENGTH] words covering: [POINT 1], [POINT 2], [POINT 3].
+Constraints: Do not invent dates, names or figures. Mark anything unknown as "to be confirmed".
+Tone: [TONE].</div>
+
+    <h3>Template B &middot; Summarise an approved document</h3>
+    <div class="prompt"><span class="prompt-label">Template</span>Summarise the text below for [AUDIENCE] in [NUMBER] points.
+Use only the information inside the source tags. If something is not covered, say "not specified in the source".
+&lt;source&gt;
+[APPROVED TEXT]
+&lt;/source&gt;</div>
+
+    <h3>Template C &middot; Critique and improve a draft</h3>
+    <div class="prompt"><span class="prompt-label">Template</span>Critique the draft above against: instruction compliance, factual support, clarity and audience suitability.
+List the three weakest points, then rewrite to fix them while keeping what already works.
+Finally, list anything I should verify myself before use.</div>
+
+    <h3>Template D &middot; Clarify before answering</h3>
+    <div class="prompt"><span class="prompt-label">Template</span>I need help with [TASK]. Before you produce any draft, ask me up to five clarifying questions that would materially change the result. Wait for my answers. Do not invent missing details.</div>
+
+    <h3>Template E &middot; Gamma-ready outline</h3>
+    <div class="prompt"><span class="prompt-label">Template</span>Act as a corporate presentation strategist.
+Create a [NUMBER]-slide presentation outline on [TOPIC].
+Audience: [AUDIENCE]
+Objective: [OBJECTIVE]
+For every slide provide: slide title, one key message, maximum three supporting points, suggested visual.
+Requirements: clear storyline; no repetition; each bullet under 12 words; no unsupported information.
+After creating the outline, review it for logical flow, duplication, clarity and suitability for Gamma.</div>
+
+    <div class="box remember">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+      Always replace every bracketed placeholder before running a template.
+    </div>
+  </section>
+
+  <!-- ============================== 25 ============================== -->
+  <section class="section page-break" id="s25">
+    <h2><span class="section-num">25</span>Post-training practice plan</h2>
+    <p>Skill comes from repetition on real (but safe) tasks. Use this simple plan for the week after the workshop.
+    Choose only tasks that are approved for AI use, or practise with fictional scenarios from this pack.</p>
+    <table>
+      <thead><tr><th>Day</th><th>Focus</th><th>Practice action</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Framing</td><td>Frame one task fully before prompting (goal, audience, success).</td></tr>
+        <tr><td>2</td><td>Source grounding</td><td>Summarise one approved document using source tags.</td></tr>
+        <tr><td>3</td><td>Constraints</td><td>Add must-include and must-exclude lists to one prompt.</td></tr>
+        <tr><td>4</td><td>Structure</td><td>Produce one output as a defined table or heading set.</td></tr>
+        <tr><td>5</td><td>Critique cycle</td><td>Run generate&ndash;critique&ndash;improve on one draft.</td></tr>
+        <tr><td>6</td><td>Audiences</td><td>Adapt one reviewed message for two readers.</td></tr>
+        <tr><td>7</td><td>Presentation</td><td>Build one outline in ChatGPT and generate it in Gamma.</td></tr>
+      </tbody>
+    </table>
+    <div class="card">
+      <h3>End-of-week self-check</h3>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> I framed at least one task before prompting.</li>
+        <li><span class="checkbox"></span> I used source tags at least once.</li>
+        <li><span class="checkbox"></span> I ran a critique&ndash;improve cycle on one draft.</li>
+        <li><span class="checkbox"></span> I verified facts before using an AI-assisted output.</li>
+        <li><span class="checkbox"></span> I kept confidential material out of public AI tools.</li>
+      </ul>
+    </div>
+    <div class="box tip">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#trophy"></use></svg>Take it further</div>
+      Resource 09 (Post-Training Challenge) turns this into a documented one-week challenge with a scoring
+      rubric and a reflection section.
+    </div>
+  </section>
+
+  <footer class="doc-footer">
+    <span class="brand">Advanced Prompt Engineering with ChatGPT and Gamma AI</span>
+    <span>Resource 01 &middot; Participant Handbook</span>
+  </footer>
+
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+  }
+</script>
+</body>
+</html>

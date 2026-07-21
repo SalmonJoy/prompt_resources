@@ -1,0 +1,727 @@
+﻿<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workplace Prompt Library &middot; Advanced Prompt Engineering</title>
+<meta name="description" content="More than 30 reusable workplace prompts for ChatGPT, organised by category.">
+<link rel="stylesheet" href="../assets/screen.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<style>
+  .cat { margin-top: 26px; }
+  .cat > h2 { display:flex; align-items:center; gap:10px; border-bottom:3px solid var(--teal); padding-bottom:6px; }
+  .cat > h2 .icon { width:24px; height:24px; fill: var(--teal); }
+  .prompt-entry { background:#fff; border:1px solid var(--line); border-left:5px solid var(--blue); border-radius:12px; padding:16px 18px; margin:14px 0; box-shadow:var(--shadow); }
+  .prompt-entry h3 { margin:0 0 6px; }
+  .pe-when { font-size:0.92rem; color:var(--ink-soft); margin:0 0 8px; }
+  .pe-meta { display:grid; grid-template-columns: 190px 1fr; gap:4px 14px; margin:10px 0 6px; font-size:0.9rem; }
+  .pe-meta dt { font-weight:700; color:var(--navy); }
+  .pe-meta dd { margin:0; }
+  .pe-review { font-size:0.88rem; background:var(--blue-soft); border-radius:8px; padding:8px 12px; margin:8px 0 0; display:flex; gap:8px; align-items:flex-start; }
+  .pe-review .icon { width:18px; height:18px; fill:var(--blue); flex:0 0 auto; margin-top:1px; }
+  .ptext { display:block; }
+  .catnav { display:flex; flex-wrap:wrap; gap:8px; }
+  .catnav a { font-size:0.85rem; text-decoration:none; background:var(--blue-soft); color:var(--navy); border-radius:999px; padding:4px 12px; font-weight:600; }
+  @media print {
+    @page { size: A4 portrait; margin: 13mm; }
+    .pe-meta { grid-template-columns: 160px 1fr; font-size:9.6pt; }
+    .prompt-entry { box-shadow:none; }
+  }
+  @media (max-width:820px){ .pe-meta{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-link no-print" href="../index.html">
+    <svg class="icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor"><use href="../assets/icons.svg#home"></use></svg>
+    Back to resource pack
+  </a>
+
+  <header class="doc-header">
+    <div class="eyebrow">Resource 05 &middot; Workplace Prompt Library</div>
+    <h1>Reusable Workplace Prompt Library</h1>
+    <p>Thirty-nine reusable prompts you can adapt to daily work. Always replace the text in [SQUARE BRACKETS]
+    before running a prompt, and remember every output is a draft until a human reviews it.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button type="button" class="btn" onclick="window.print()">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
+      Print this resource
+    </button>
+    <a class="btn secondary" href="../index.html">All resources</a>
+  </div>
+
+  <section class="card no-print">
+    <h3 style="margin-top:0">Jump to a category</h3>
+    <nav class="catnav">
+      <a href="#writing">Writing &amp; Communication</a>
+      <a href="#summary">Summarisation</a>
+      <a href="#reports">Reports &amp; Documentation</a>
+      <a href="#thinking">Thinking &amp; Analysis</a>
+      <a href="#ld">L&amp;D &amp; Training</a>
+      <a href="#present">Presentation Creation</a>
+    </nav>
+  </section>
+
+  <div class="box tip">
+    <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>How to use this library</div>
+    On screen, use the <strong>Copy Prompt</strong> button on any prompt, paste it into ChatGPT and replace every
+    bracketed placeholder. The copy buttons are hidden when you print. All examples are fictional or generic.
+  </div>
+
+  <!-- ==================== WRITING & COMMUNICATION ==================== -->
+  <div class="cat" id="writing">
+    <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#chat"></use></svg>Writing and Communication</h2>
+
+    <article class="prompt-entry">
+      <h3>1. Professional email</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> You need a clear, polite email and want the right tone first time.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as [YOUR ROLE].
+Write a professional email to [RECIPIENT].
+Goal: [WHAT THE READER SHOULD KNOW OR DO].
+Context: [ONE OR TWO LINES OF BACKGROUND].
+Include: [POINT 1], [POINT 2], [POINT 3].
+Tone: [FORMAL / NEUTRAL / FRIENDLY]. Keep it under [NUMBER] words.
+Do not invent dates, names or figures; mark anything unknown as "to be confirmed".</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[YOUR ROLE], [RECIPIENT], goal, context, points, tone, word limit.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a one-line summary at the top." &middot; "Make the closing warmer without adding promises."</dd>
+        <dt>Expected output structure</dt><dd>Subject line, greeting, short body, clear request, sign-off.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm names, dates and any commitment before sending.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>2. Escalation email</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> You must raise an issue upward calmly and factually.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as [YOUR ROLE].
+Write a measured escalation email to [SENIOR RECIPIENT] about [ISSUE].
+Include: what is happening, why it matters now, what has already been tried, and the specific decision or support needed.
+Tone: professional and non-blaming. Keep it under 180 words.
+State facts only; do not exaggerate impact or assign blame.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[YOUR ROLE], [SENIOR RECIPIENT], [ISSUE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a short options paragraph with two possible next steps." &middot; "Soften the urgency wording."</dd>
+        <dt>Expected output structure</dt><dd>Subject, one-line summary, issue, impact, action requested.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: ensure the facts and impact are accurate and proportionate.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>3. Department update</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> A recurring internal update to your team or peers.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as [YOUR ROLE].
+Turn these notes into a short department update for [AUDIENCE].
+&lt;source&gt;[PASTE YOUR BULLET NOTES]&lt;/source&gt;
+Use sections: Progress, Risks or watch-outs, Next steps.
+Use only the information in the source. Keep it under 200 words and neutral in tone.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[YOUR ROLE], [AUDIENCE], source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Move anything routine out of Risks." &middot; "Add owners to each Next step."</dd>
+        <dt>Expected output structure</dt><dd>Three headed sections with short bullets.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: check nothing was added beyond your notes.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>4. Policy communication</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Explaining an approved process change to staff.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as an internal communications writer.
+Write a clear communication about [APPROVED CHANGE] for [AUDIENCE].
+&lt;source&gt;[PASTE THE APPROVED SUMMARY OF THE CHANGE]&lt;/source&gt;
+Cover: what is changing, when it takes effect, why, and who to contact.
+Use only the source. If a detail is missing, write "to be confirmed" rather than guessing.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[APPROVED CHANGE], [AUDIENCE], source summary.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a short FAQ of three likely questions." &middot; "Produce a two-line notice-board version."</dd>
+        <dt>Expected output structure</dt><dd>Heading, what/when/why, contact, optional FAQ.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: the policy owner must confirm accuracy before release.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>5. Employee announcement</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> A short, positive all-staff notice.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write a brief, warm employee announcement about [EVENT OR NEWS] for all staff.
+Include: what is happening, the date, and any action needed.
+Keep it under 120 words, inclusive and neutral.
+Do not include personal data or any commitment I have not provided.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[EVENT OR NEWS], date, action.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Give me three subject-line options." &middot; "Make it slightly more formal."</dd>
+        <dt>Expected output structure</dt><dd>Short heading, one paragraph, optional action line.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm names, dates and permissions to announce.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>6. Follow-up email</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Chasing a pending action politely.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write a short, polite follow-up email to [RECIPIENT] about [OUTSTANDING ITEM].
+Reference the previous request briefly, restate what is needed and by when, and offer help.
+Tone: courteous, not pushy. Under 100 words.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[RECIPIENT], [OUTSTANDING ITEM], deadline.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Make it firmer but still polite." &middot; "Add a one-line summary of what I need."</dd>
+        <dt>Expected output structure</dt><dd>Brief context, clear ask, deadline, offer of help.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the deadline and that the item is still outstanding.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>7. Management briefing</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> A concise brief for a busy manager.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as a business analyst.
+Write a one-page briefing for [MANAGER ROLE] on [TOPIC].
+&lt;source&gt;[PASTE RELEVANT NOTES OR DATA]&lt;/source&gt;
+Sections: Situation, Key points (max 4), Options to consider, Recommended discussion points.
+Use only the source. Present options for human decision; do not decide.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[MANAGER ROLE], [TOPIC], source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Compress to half a page." &middot; "Add a risks line to each option."</dd>
+        <dt>Expected output structure</dt><dd>Four short labelled sections.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: verify figures; the decision remains with the manager.</p>
+    </article>
+  </div>
+
+  <!-- ==================== SUMMARISATION ==================== -->
+  <div class="cat" id="summary">
+    <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#doc"></use></svg>Summarisation</h2>
+
+    <article class="prompt-entry">
+      <h3>8. Executive summary</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Condensing a long document for senior readers.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Summarise the text below into an executive summary for [SENIOR AUDIENCE].
+&lt;source&gt;[PASTE APPROVED TEXT]&lt;/source&gt;
+Give: a one-sentence headline, 4-5 key points, and any decisions or risks.
+Use only the source. Mark anything not covered as "not specified in the source".</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[SENIOR AUDIENCE], source text.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Halve the length." &middot; "Lead with the single most important point."</dd>
+        <dt>Expected output structure</dt><dd>Headline, bullet points, risks/decisions.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the summary reflects the source without new claims.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>9. Document summary</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> A neutral summary of any approved document.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Summarise the document below in [NUMBER] bullet points for [AUDIENCE].
+&lt;source&gt;[PASTE APPROVED DOCUMENT]&lt;/source&gt;
+Keep each point under 20 words. Use only the source; do not add interpretation.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [AUDIENCE], source document.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Group the points under headings." &middot; "List questions the document leaves open."</dd>
+        <dt>Expected output structure</dt><dd>Concise bullet list.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: check no bullet overstates or invents detail.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>10. Meeting summary</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Turning rough meeting notes into a shareable summary.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Summarise these meeting notes for people who did not attend.
+&lt;source&gt;[PASTE NOTES]&lt;/source&gt;
+Output: Decisions, Action items (owner and due date), Open questions.
+Use only the source. If an owner or date is missing, write "to be confirmed".</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Sort actions by due date." &middot; "Add a two-line overview at the top."</dd>
+        <dt>Expected output structure</dt><dd>Three sections: decisions, actions, open questions.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm owners and dates with attendees.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>11. Technical simplification</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Making a technical passage understandable to non-experts.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Rewrite the passage below in plain language for [NON-EXPERT AUDIENCE].
+&lt;source&gt;[PASTE TECHNICAL TEXT]&lt;/source&gt;
+Keep all facts unchanged, explain any necessary term in one line, and avoid jargon.
+Do not simplify to the point of changing the meaning.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NON-EXPERT AUDIENCE], source text.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a short glossary." &middot; "Give me a one-paragraph version."</dd>
+        <dt>Expected output structure</dt><dd>Plain-language rewrite, optional glossary.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: a subject expert should confirm meaning was preserved.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>12. Key-point extraction</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Pulling the essential points from a long text.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">From the text below, extract the [NUMBER] most important points for [PURPOSE].
+&lt;source&gt;[PASTE TEXT]&lt;/source&gt;
+Return a numbered list, most important first. Quote or closely paraphrase the source; do not add outside information.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [PURPOSE], source text.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a one-line reason each point matters." &middot; "Split into 'now' and 'later'."</dd>
+        <dt>Expected output structure</dt><dd>Ranked numbered list.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the ranking matches your judgement.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>13. FAQ creation</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Anticipating common questions about a topic or change.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Create a short FAQ about [TOPIC] for [AUDIENCE], based only on the source below.
+&lt;source&gt;[PASTE APPROVED INFORMATION]&lt;/source&gt;
+Write [NUMBER] question-and-answer pairs. Keep answers under 40 words.
+If the source does not answer a likely question, list it separately as "needs an answer".</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[TOPIC], [AUDIENCE], [NUMBER], source.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Order questions from most to least common." &middot; "Add a friendly intro line."</dd>
+        <dt>Expected output structure</dt><dd>Q&amp;A pairs plus a "needs an answer" list.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: the topic owner should confirm each answer.</p>
+    </article>
+  </div>
+
+  <!-- ==================== REPORTS & DOCUMENTATION ==================== -->
+  <div class="cat" id="reports">
+    <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#clipboard"></use></svg>Reports and Documentation</h2>
+
+    <article class="prompt-entry">
+      <h3>14. Shift-handover draft</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Turning shift notes into a clear handover.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as a shift in-charge.
+Turn these notes into a shift-handover summary for the next shift.
+&lt;source&gt;[PASTE SHIFT NOTES]&lt;/source&gt;
+Sections: Status, Issues, Actions taken, Pending items, Watch-outs for next shift.
+Use only the source. Mark unknowns as "to be confirmed". This is a fictional practice example.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source shift notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Make each item a single line." &middot; "Highlight the two most urgent items."</dd>
+        <dt>Expected output structure</dt><dd>Five short labelled sections.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: the outgoing shift must confirm accuracy before handover.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>15. Incident summary</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Documenting what happened, factually and neutrally.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write a factual incident summary from the notes below.
+&lt;source&gt;[PASTE NOTES]&lt;/source&gt;
+Sections: What was observed, When and where, Immediate actions taken, Current status.
+Describe only what is in the source. Do not state a root cause or assign responsibility.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a timeline of events." &middot; "List information still needed."</dd>
+        <dt>Expected output structure</dt><dd>Four factual sections.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: conclusions and cause remain for the responsible experts.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>16. Action tracker</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Converting discussion into a trackable list.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">From the notes below, build an action tracker as a table.
+&lt;source&gt;[PASTE NOTES]&lt;/source&gt;
+Columns: Action, Owner, Due date, Status, Notes.
+Use only the source. Where owner or date is missing, put "to be confirmed".</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Sort by due date." &middot; "Flag items with no owner."</dd>
+        <dt>Expected output structure</dt><dd>Five-column table.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm each owner has accepted their action.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>17. Meeting minutes</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Formal minutes from raw notes.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Convert the notes below into formal meeting minutes.
+&lt;source&gt;[PASTE NOTES]&lt;/source&gt;
+Sections: Attendees, Agenda, Discussion (brief), Decisions, Actions (owner, due date), Open questions.
+Use only the source; do not add discussion that is not recorded.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Keep discussion to one line per item." &middot; "Add a next-meeting date field."</dd>
+        <dt>Expected output structure</dt><dd>Standard minutes layout.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: the chair should approve the minutes before circulation.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>18. Weekly status report</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> A consistent weekly report format.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Act as [YOUR ROLE].
+Write a weekly status report for [AUDIENCE] from the notes below.
+&lt;source&gt;[PASTE THIS WEEK'S NOTES]&lt;/source&gt;
+Sections: Completed, In progress, Blocked/at risk, Planned next week.
+Use only the source. Keep it under one page.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[YOUR ROLE], [AUDIENCE], source notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a RAG status per item." &middot; "Summarise the top risk in one line."</dd>
+        <dt>Expected output structure</dt><dd>Four short sections.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm status labels reflect reality.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>19. Structured observation summary</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Recording observations in a consistent structure.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Organise the observation notes below into a structured summary.
+&lt;source&gt;[PASTE OBSERVATION NOTES]&lt;/source&gt;
+Columns: Observation, Where seen, Category, Suggested follow-up question.
+Describe only what is recorded. Do not classify severity or draw conclusions.
+This is a fictional practice example.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source observation notes.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Group by category." &middot; "List what would need checking to follow up."</dd>
+        <dt>Expected output structure</dt><dd>Four-column table.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: qualified staff decide severity and any action.</p>
+    </article>
+  </div>
+
+  <!-- ==================== THINKING & ANALYSIS ==================== -->
+  <div class="cat" id="thinking">
+    <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Thinking and Analysis</h2>
+
+    <article class="prompt-entry">
+      <h3>20. Option comparison</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Weighing two or more choices objectively.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Compare [OPTION A] and [OPTION B] for [GOAL] in a table.
+Rows: Cost, Time, Effort, Main benefit, Main risk.
+Keep each cell under 15 words. After the table, give a neutral one-line summary.
+Present this for human decision; do not choose for me.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[OPTION A], [OPTION B], [GOAL].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a third option." &middot; "Add a 'best if...' line per option."</dd>
+        <dt>Expected output structure</dt><dd>Comparison table plus summary.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: validate assumptions behind cost, time and risk.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>21. Risk identification</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Surfacing risks before a decision or task.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">I am planning [ACTIVITY]. Context: [BACKGROUND].
+List up to [NUMBER] possible risks. For each: a one-line description, a likely impact, and a possible mitigation.
+Flag which risks depend on assumptions I should verify.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[ACTIVITY], [BACKGROUND], [NUMBER].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Rank by potential impact." &middot; "Separate risks I control from those I do not."</dd>
+        <dt>Expected output structure</dt><dd>Risk / impact / mitigation list.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: treat this as a prompt for thinking, not a risk assessment.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>22. Root-cause exploration</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Structuring your thinking about why something happened.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Help me explore possible contributing factors for this fictional situation: [DESCRIBE SITUATION].
+Group possibilities under headings such as people, process, materials, environment and information.
+List questions I should investigate for each. Do not state a definitive root cause.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[DESCRIBE SITUATION].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Turn this into a list of things to check." &middot; "Add what evidence would confirm each factor."</dd>
+        <dt>Expected output structure</dt><dd>Grouped factors with investigation questions.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: root-cause conclusions require qualified analysis, not AI.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>23. Brainstorming</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Generating ideas quickly to refine later.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Generate [NUMBER] practical ideas to improve [SITUATION].
+Focus on [CONSTRAINT, e.g. low-cost and easy to implement].
+Group similar ideas and mark the three quickest to try.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [SITUATION], [CONSTRAINT].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Expand the top three into steps." &middot; "Add a possible downside to each."</dd>
+        <dt>Expected output structure</dt><dd>Grouped idea list with quick wins marked.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: feasibility and suitability are your judgement.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>24. Decision matrix</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Scoring options against weighted criteria.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Build a decision matrix for choosing between [OPTIONS] for [GOAL].
+Criteria: [CRITERION 1], [CRITERION 2], [CRITERION 3] with weights I provide: [WEIGHTS].
+Show a scored table and the resulting order, but note that the final decision is mine.
+Use only the information I give; do not invent scores.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[OPTIONS], [GOAL], criteria, [WEIGHTS].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Show how the order changes if I re-weight." &middot; "Explain the closest call."</dd>
+        <dt>Expected output structure</dt><dd>Weighted scored table with ranking.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the scores reflect real evidence.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>25. Implementation planning</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Turning a goal into a phased plan.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Create a [NUMBER]-week implementation plan for [PROJECT].
+Context: [BACKGROUND AND CONSTRAINTS].
+For each week: key actions, who is typically involved, and one checkpoint.
+Keep it realistic and flag any dependency that could delay the plan.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [PROJECT], [BACKGROUND AND CONSTRAINTS].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a simple milestone list." &middot; "Identify the riskiest week."</dd>
+        <dt>Expected output structure</dt><dd>Week-by-week plan with checkpoints.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: validate timelines and resource availability.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>26. Stakeholder analysis</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Mapping who is affected and how to engage them.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">For [INITIATIVE], list the likely stakeholder groups.
+For each: their main interest, likely concern, and a suggested way to keep them informed.
+Present as a table. Keep it general; do not name individuals.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[INITIATIVE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Mark who to engage earliest." &middot; "Add a one-line message for each group."</dd>
+        <dt>Expected output structure</dt><dd>Stakeholder table.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the groups and concerns match your context.</p>
+    </article>
+  </div>
+
+  <!-- ==================== L&D & TRAINING ==================== -->
+  <div class="cat" id="ld">
+    <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#book"></use></svg>L&amp;D and Training</h2>
+
+    <article class="prompt-entry">
+      <h3>27. Learning objectives</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Defining what a session should achieve.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write [NUMBER] clear learning objectives for a session on [TOPIC] for [AUDIENCE].
+Start each with an action verb (describe, apply, evaluate...) and make each observable.
+Keep them realistic for a [DURATION] session.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [TOPIC], [AUDIENCE], [DURATION].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Group into must-know and nice-to-know." &middot; "Suggest how to assess each."</dd>
+        <dt>Expected output structure</dt><dd>Numbered, action-verb objectives.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm objectives match the real training need.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>28. Session outline</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Structuring the flow of a training session.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Create a [DURATION] session outline on [TOPIC] for [AUDIENCE].
+For each segment: time, purpose, key points, and one activity.
+Balance explanation and practice. Keep it practical, not theoretical.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[DURATION], [TOPIC], [AUDIENCE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a five-minute recap at the end." &middot; "Suggest a short opener."</dd>
+        <dt>Expected output structure</dt><dd>Timed segment table.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm timing and content fit your group.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>29. Facilitator guide</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Preparing notes to run a session confidently.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write facilitator notes for a session on [TOPIC].
+For each segment: what to say briefly, what to ask the group, and what to watch for.
+Keep guidance practical and encouraging. Under one page per hour of session.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[TOPIC].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add two prompts to restart a quiet discussion." &middot; "Add timing cues."</dd>
+        <dt>Expected output structure</dt><dd>Segment-by-segment facilitator notes.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: adapt the notes to your own facilitation style.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>30. Scenario-based questions</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Creating realistic practice scenarios.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Create [NUMBER] fictional workplace scenarios about [TOPIC] for [AUDIENCE].
+Each scenario: a short situation and one open question that prompts discussion.
+Keep scenarios generic and fictional; do not use real people or confidential details.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [TOPIC], [AUDIENCE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a follow-up question for each." &middot; "Make one scenario more challenging."</dd>
+        <dt>Expected output structure</dt><dd>Scenario + discussion question pairs.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm scenarios are appropriate and fictional.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>31. Quiz creation</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Checking understanding after training.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write [NUMBER] multiple-choice questions on [TOPIC] for [AUDIENCE].
+Each: one clear question, four options, only one correct.
+Keep language plain and avoid trick wording. Provide the questions only, without marking the answers.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [TOPIC], [AUDIENCE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add two scenario-based questions." &middot; "Rewrite any question that is ambiguous."</dd>
+        <dt>Expected output structure</dt><dd>Numbered MCQs with four options each.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: verify each question has exactly one defensible answer.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>32. Training communication</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Inviting people to a session.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write a short invitation to a session on [TOPIC] for [AUDIENCE].
+Include: what they will learn, date and time, duration, and any preparation.
+Keep it under 120 words and encouraging. Do not add details I have not given.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[TOPIC], [AUDIENCE], date, time, duration.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Give me a reminder version." &middot; "Add three learning highlights."</dd>
+        <dt>Expected output structure</dt><dd>Invitation with logistics and highlights.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the logistics before sending.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>33. Post-training assessment</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Measuring application after a session.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Design a short post-training assessment for [TOPIC].
+Include: three knowledge questions, one short scenario task, and two reflection questions on how they will apply it.
+Keep it completable in about 15 minutes.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[TOPIC].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a simple self-rating scale." &middot; "Make the scenario workplace-relevant."</dd>
+        <dt>Expected output structure</dt><dd>Mixed knowledge, scenario and reflection items.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm it measures the objectives you set.</p>
+    </article>
+  </div>
+
+  <!-- ==================== PRESENTATION CREATION ==================== -->
+  <div class="cat" id="present">
+    <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#presentation"></use></svg>Presentation Creation</h2>
+
+    <article class="prompt-entry">
+      <h3>34. Presentation objective</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Clarifying the purpose before building slides.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Help me define the objective of a presentation on [TOPIC] for [AUDIENCE].
+Give: a one-sentence objective, the single message the audience should remember, and three points that support it.
+Ask me one question if the objective is unclear.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[TOPIC], [AUDIENCE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Suggest a strong opening line." &middot; "Tighten the core message."</dd>
+        <dt>Expected output structure</dt><dd>Objective, core message, supporting points.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm the objective matches your real goal.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>35. Slide storyline</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Building a logical slide-by-slide flow.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Create a [NUMBER]-slide storyline on [TOPIC] for [AUDIENCE].
+For each slide: title, one key message, up to three supporting points, and a suggested visual.
+Maintain a clear flow, avoid repetition, keep bullets under 12 words. Do not add unsupported information.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[NUMBER], [TOPIC], [AUDIENCE].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Check the flow for gaps." &middot; "Merge any two overlapping slides."</dd>
+        <dt>Expected output structure</dt><dd>Slide-by-slide outline (Gamma-ready).</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: verify facts and flow before generating in Gamma.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>36. Executive presentation</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> A short, high-level deck for senior leaders.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Create a 5-slide executive outline on [TOPIC] for senior leaders.
+Lead with the decision or recommendation, then support it.
+Slides: Recommendation, Why now, Options considered, Risks, Next steps.
+Keep it crisp; present options for decision rather than deciding.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[TOPIC].</dd>
+        <dt>Suggested follow-ups</dt><dd>"Add a one-line appendix note per slide." &middot; "Sharpen the recommendation."</dd>
+        <dt>Expected output structure</dt><dd>Five decision-led slides.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: verify every figure the leaders will see.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>37. Gamma-ready card content</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Formatting an outline for pasting into Gamma.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Convert this outline into Gamma-ready cards.
+&lt;source&gt;[PASTE YOUR REVIEWED OUTLINE]&lt;/source&gt;
+For each card: a short title and 2-3 concise lines only.
+Remove filler, keep language professional, and do not add new facts.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source outline.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Suggest a visual per card." &middot; "Shorten any card over three lines."</dd>
+        <dt>Expected output structure</dt><dd>Card title + brief lines.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: confirm nothing new was introduced during conversion.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>38. Presentation critique</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Improving a draft outline before generating.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Critique the presentation outline below for [AUDIENCE].
+&lt;source&gt;[PASTE OUTLINE]&lt;/source&gt;
+Assess: logical flow, duplication, clarity, and suitability for the audience.
+List the three most useful improvements. Do not rewrite it yet.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>[AUDIENCE], source outline.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Now apply improvement one." &middot; "Flag any slide that could be cut."</dd>
+        <dt>Expected output structure</dt><dd>Prioritised list of improvements.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: you decide which suggestions to accept.</p>
+    </article>
+
+    <article class="prompt-entry">
+      <h3>39. Speaker notes</h3>
+      <p class="pe-when"><span class="pill when">When to use</span> Preparing what to say for each slide.</p>
+      <div class="prompt"><span class="prompt-label">Reusable prompt</span><button class="copy-btn no-print" type="button" onclick="copyPrompt(this)"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy Prompt</button><span class="ptext">Write short speaker notes for the slides below.
+&lt;source&gt;[PASTE SLIDE TITLES AND KEY POINTS]&lt;/source&gt;
+For each slide: 2-3 sentences to say aloud and one transition line to the next slide.
+Keep it natural and concise. Do not add claims not on the slide.</span></div>
+      <dl class="pe-meta">
+        <dt>Variables to replace</dt><dd>source slide points.</dd>
+        <dt>Suggested follow-ups</dt><dd>"Make the tone more conversational." &middot; "Add a strong closing line."</dd>
+        <dt>Expected output structure</dt><dd>Notes plus transitions per slide.</dd>
+      </dl>
+      <p class="pe-review"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Human review: rehearse and adjust to your own voice.</p>
+    </article>
+  </div>
+
+  <div class="box warning">
+    <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+    Use fictional or sanitised information when practising. Do not paste confidential, personal, proprietary,
+    audit-sensitive, clinical, formula-related, regulatory or credential information into public AI tools without
+    organisational approval. Every output is a draft until a human reviews it.
+  </div>
+
+  <footer class="doc-footer">
+    <span class="brand">Advanced Prompt Engineering with ChatGPT and Gamma AI</span>
+    <span>Resource 05 &middot; Workplace Prompt Library</span>
+  </footer>
+
+</div>
+<script>
+  // Copy only the reusable prompt text. The pack remains fully usable without JavaScript.
+  function copyPrompt(btn) {
+    var box = btn.closest('.prompt');
+    var textEl = box ? box.querySelector('.ptext') : null;
+    var text = textEl ? textEl.innerText : '';
+    var done = function () {
+      var original = btn.getAttribute('data-label') || btn.textContent;
+      btn.setAttribute('data-label', 'Copy');
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#copy"></use></svg>Copy'; }, 1400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'absolute'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+  }
+</script>
+</body>
+</html>

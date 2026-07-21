@@ -1,0 +1,51 @@
+Ajanta Pharma Participant Resource Pack — File Manifest
+Workshop: Advanced Prompt Engineering with ChatGPT and Gamma AI
+Generated for offline, printable HTML use (no external dependencies).
+
+index.html
+  Landing page with workshop overview, resource list, Open/Print buttons, Print Complete Participant Pack guidance, and participant instructions.
+
+README.html
+  How to open and use the pack, print settings, background graphics, print-to-PDF, one-page workstation references, and policy-precedence reminder.
+
+file_manifest.txt
+  This file — inventory of every generated pack file with a one-line description.
+
+assets/screen.css
+  Shared on-screen design system (CSS variables, navy/teal theme, cards, callouts, prompt boxes, buttons, responsive layout).
+
+assets/print.css
+  A4 print stylesheet (13 mm margins, page numbers, break rules, hide interactive controls, greyscale-safe prompt/table styles).
+
+assets/icons.svg
+  Original SVG symbol sprite (target, layers, checklist, shield, library, book, presentation, clipboard, trophy, warning, copy, print, and supporting icons).
+
+resources/01_participant_handbook.html
+  Full participant handbook (~20–25 A4 pages): 25 sections covering themes, framework, techniques with 8-part structure, responsible use, Gamma workflow, templates, and practice plan.
+
+resources/02_advanced_prompt_framework.html
+  One-page A4 workstation poster: Before Prompting / Build the Prompt / After Receiving the Output, confidentiality footer, logo placeholder.
+
+resources/03_prompt_review_checklist.html
+  One-page two-column checklist (Before Running / After Receiving) with printable checkboxes.
+
+resources/04_responsible_ai_checklist.html
+  One-page responsible-AI guide: safer examples, do-not-upload list, before-using checks, and policy disclaimer.
+
+resources/05_workplace_prompt_library.html
+  Reusable workplace prompt library (39 prompts across 6 categories) with copy buttons, variables, follow-ups, output structure, and human-review reminders.
+
+resources/06_case_study_workbook.html
+  Eight fictional case studies with worksheets, rubrics, teaching notes on weak prompts, writing space, and responsible-use reminders (no trainer answers).
+
+resources/07_gamma_quick_guide.html
+  ChatGPT-to-Gamma quick guide: 13-step workflow, reusable presentation prompt, six-slide sample, pre/post checklists, common mistakes.
+
+resources/08_participant_assessment.html
+  End-of-session assessment: Section A (10 MCQs), Section B (2 prompt improvements), Section C (practical scenario with 9 sub-tasks); no answer key.
+
+resources/09_post_training_challenge.html
+  One-week application challenge with 11 documentation items, scoring rubric, and reflection questions.
+
+Ajanta_Pharma_Participant_Resource_Pack.zip
+  Compressed archive of the complete participant resource pack folder structure for distribution.

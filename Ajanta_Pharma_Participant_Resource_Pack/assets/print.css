@@ -1,0 +1,164 @@
+/* =====================================================================
+   Ajanta Pharma - Participant Resource Pack
+   print.css - A4 print optimisation
+   Loaded with media="print"
+   ===================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 13mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: Aptos, Arial, Calibri, "Segoe UI", sans-serif;
+    font-size: 9pt;
+    color: #465562;
+  }
+}
+
+/* Landscape pages: apply class "landscape" on <body> of a resource that
+   genuinely needs the extra width (e.g. wide comparison tables). */
+@page landscape {
+  size: A4 landscape;
+  margin: 13mm;
+  @bottom-center {
+    content: counter(page);
+    font-family: Aptos, Arial, Calibri, "Segoe UI", sans-serif;
+    font-size: 9pt;
+    color: #465562;
+  }
+}
+
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #000;
+    font-size: 11pt;          /* >= 10.5pt body text */
+    line-height: 1.4;
+  }
+
+  body.landscape { page: landscape; }
+
+  .wrap {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide interactive / navigation elements */
+  .no-print,
+  .toolbar,
+  .btn,
+  .copy-btn,
+  .back-link,
+  nav {
+    display: none !important;
+  }
+
+  /* Ensure colour fills and backgrounds print */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Header prints as a lighter band so it works in greyscale too */
+  .doc-header {
+    background: #0f2a4d !important;
+    color: #fff !important;
+    box-shadow: none;
+    border: 1px solid #0f2a4d;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .doc-header p { color: #eaf1f8 !important; }
+
+  h1 { font-size: 20pt; }       /* major headings >= 16pt */
+  h2 { font-size: 15pt; }
+  h3 { font-size: 12.5pt; }
+  h4 { font-size: 11.5pt; }
+
+  /* Keep blocks intact across page breaks */
+  .card,
+  .box,
+  .prompt,
+  .resource,
+  table,
+  figure,
+  .worksheet,
+  .write-lines,
+  .write-box,
+  .case-study,
+  .qa-item,
+  .prompt-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Prevent headings from sitting alone at the foot of a page */
+  h1, h2, h3, h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h2, h3 { orphans: 3; widows: 3; }
+  p, li { orphans: 3; widows: 3; }
+
+  /* Explicit page breaks where marked */
+  .page-break { break-before: page; page-break-before: always; }
+  .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+
+  /* Shadows off for crisp print */
+  .card, .doc-header, .resource { box-shadow: none !important; }
+
+  /* Links print legibly (kept dark, no URL spam for internal nav) */
+  a { color: #0a1f3a; text-decoration: underline; }
+
+  /* Prompt boxes: readable in greyscale, no clipping */
+  .prompt {
+    background: #f3f5f8 !important;
+    color: #10233a !important;
+    border: 1px solid #9fb2c6 !important;
+    font-size: 10pt;
+    overflow: visible;
+    white-space: pre-wrap;
+  }
+  .prompt .prompt-label { color: #0f2a4d !important; }
+  .prompt.weak { background: #f7ecec !important; border-color: #d3a9a9 !important; }
+  .prompt.improved { background: #ecf5ef !important; border-color: #a9cdb6 !important; }
+  .prompt.followup { background: #eef2f8 !important; border-color: #a9bdd6 !important; }
+
+  /* Tables must fit the printable width */
+  table { font-size: 9.8pt; width: 100% !important; }
+  thead { display: table-header-group; }  /* repeat header on each page */
+  th, td { padding: 5px 7px; }
+  thead th { background: #0f2a4d !important; color: #fff !important; }
+  tbody tr:nth-child(even) { background: #eef2f7 !important; }
+
+  /* Multi-column layouts collapse to avoid awkward breaks in print
+     unless explicitly a checklist two-column page */
+  .two-col { column-count: 2; }
+
+  /* Footer prints on content, small */
+  .doc-footer { font-size: 9pt; margin-top: 18px; }
+
+  /* Writing space keeps lines visible on print */
+  .write-lines {
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 29px,
+        #c7d2de 29px,
+        #c7d2de 30px
+      ) !important;
+    border: 1px solid #c7d2de;
+  }
+
+  /* One-page resources: prevent stray overflow to a 2nd sheet */
+  body.one-page .wrap { padding: 0; }
+
+  /* Poster fills the single A4 sheet */
+  body.poster .wrap { padding: 0; }
+  body.poster .doc-footer { margin-top: 10px; }
+
+  img, svg { max-width: 100%; }
+}

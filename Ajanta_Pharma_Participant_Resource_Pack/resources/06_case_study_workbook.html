@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case-Study Workbook &middot; Advanced Prompt Engineering</title>
+<meta name="description" content="Eight fictional workplace case studies for practising the advanced prompt framework.">
+<link rel="stylesheet" href="../assets/screen.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<style>
+  .case-study { border:1px solid var(--line-strong); border-radius:14px; padding:0; margin:22px 0; overflow:hidden; box-shadow:var(--shadow); }
+  .case-study > .cs-head { background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; padding:16px 20px; }
+  .cs-head .cs-num { font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:#bfe0f5; font-weight:700; }
+  .cs-head h2 { color:#fff; margin:2px 0 0; font-size:1.35rem; }
+  .cs-body { padding:18px 20px; }
+  .cs-body h4 { color:var(--blue); margin-top:18px; text-transform:uppercase; letter-spacing:0.04em; font-size:0.82rem; }
+  .cs-body h4:first-child { margin-top:0; }
+  .disclaimer { font-size:0.82rem; font-style:italic; color:#5a3d0d; background:var(--amber-soft); border:1px solid #eed6a6; border-radius:8px; padding:8px 12px; margin:0 0 14px; }
+  .rubric td:first-child { width:42%; }
+  .hint { background:var(--teal-soft); border:1px solid #b8e2de; border-radius:8px; padding:8px 12px; font-size:0.9rem; margin:8px 0; }
+  .hint b { color:#0b6f6f; }
+  @media print { @page { size:A4 portrait; margin:13mm; } .case-study{ box-shadow:none; } .case-study{ break-before:page; page-break-before:always; } #cs1{ break-before:auto; page-break-before:auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-link no-print" href="../index.html">
+    <svg class="icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor"><use href="../assets/icons.svg#home"></use></svg>
+    Back to resource pack
+  </a>
+
+  <header class="doc-header">
+    <div class="eyebrow">Resource 06 &middot; Case-Study Workbook</div>
+    <h1>Case-Study Workbook</h1>
+    <p>Eight fictional workplace case studies for hands-on practice. For each case, diagnose the weak prompt,
+    then build a stronger one using the advanced framework. Write directly on the printed pages. There are no
+    trainer answers here &mdash; the goal is your own practice.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button type="button" class="btn" onclick="window.print()">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
+      Print this resource
+    </button>
+    <a class="btn secondary" href="../index.html">All resources</a>
+  </div>
+
+  <div class="box tip">
+    <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>How to work through each case</div>
+    Read the scenario and the fictional source, note what is wrong with the weak prompt, complete the blank
+    framework worksheet, then write your improved prompt and one follow-up prompt. Finish with the output-review
+    checklist and the rubric. Keep everything fictional.
+  </div>
+
+  <!-- =============== CASE 1 =============== -->
+  <article class="case-study" id="cs1">
+    <div class="cs-head"><div class="cs-num">Case Study 1</div><h2>Manufacturing shift handover</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+
+      <h4>Scenario</h4>
+      <p>You are finishing a shift on a fictional packing line and must hand over to the next shift. Your notes
+      are rough, and the next shift needs to know status, open issues and what to watch for.</p>
+
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">Line P-2 ran normally most of the shift. Around mid-shift the labeller jammed twice;
+        cleared both times, maintenance informed. One tote of caps is waiting for a replacement label reel
+        (reel number to be confirmed). Housekeeping done. Two operators trained on the new checklist. Restart
+        time for the pending tote not yet known.</p>
+      </div>
+
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write a handover.</div>
+
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>No clear goal &mdash; "write a handover" does not say what the next shift must know.</li>
+        <li>No role or audience &mdash; outgoing operator vs next-shift team is never specified.</li>
+        <li>No source grounding &mdash; the fictional notes are not attached or referenced.</li>
+        <li>No output format &mdash; sections such as status, open issues and watch-outs are missing.</li>
+        <li>No constraints &mdash; nothing stops the model inventing a restart time or other facts.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+
+      <h4>Your task</h4>
+      <p>Rewrite the prompt using the framework so the next shift gets a clear, structured handover based only
+      on the source above.</p>
+      <div class="hint"><b>Hint:</b> think about role, the exact sections you want, and a constraint that stops
+      the model inventing a restart time.</div>
+
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> Every section is based only on the source.</li>
+        <li><span class="checkbox"></span> Unknowns are marked "to be confirmed", not invented.</li>
+        <li><span class="checkbox"></span> The most urgent item is easy to find.</li>
+        <li><span class="checkbox"></span> Tone and length suit a quick handover.</li>
+      </ul>
+
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Task framing</td><td>Clear goal, role and audience</td><td>Vague or missing</td></tr>
+          <tr><td>Source grounding</td><td>Uses only the source</td><td>Adds outside detail</td></tr>
+          <tr><td>Constraints</td><td>Prevents invented facts</td><td>No guardrails</td></tr>
+          <tr><td>Output format</td><td>Clear sections, right length</td><td>Unstructured</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Reflection questions</h4>
+      <ul>
+        <li>Which single constraint most improved the output?</li>
+        <li>What would you check before actually sending a handover like this?</li>
+      </ul>
+
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Practise with fictional data only. A real handover must be confirmed by the outgoing shift and follow
+      approved processes.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 2 =============== -->
+  <article class="case-study" id="cs2">
+    <div class="cs-head"><div class="cs-num">Case Study 2</div><h2>QA observation summary</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+
+      <h4>Scenario</h4>
+      <p>During a fictional routine walk-through, you jotted several general observations and want a neutral,
+      structured summary to share with your team lead for discussion.</p>
+
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">Corridor lighting near store area dim in one spot. A general noticeboard had an
+        out-of-date notice. Two labelled sample trays not returned to their marked location. A hand-sanitiser
+        station was empty. All observations general and non-specific; no product or batch involved.</p>
+      </div>
+
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Tell me how serious these QA issues are and what the root cause is.</div>
+
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>Asks for prohibited decisions &mdash; severity rating and root cause are not for the model.</li>
+        <li>Wrong goal &mdash; it seeks judgement instead of a neutral observation summary.</li>
+        <li>Invites speculation &mdash; the source gives only general notes, not causes.</li>
+        <li>No audience or output format &mdash; not framed for a team-lead discussion table.</li>
+        <li>No constraints &mdash; nothing keeps the output descriptive and non-conclusive.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+
+      <h4>Your task</h4>
+      <p>Rewrite the prompt to produce a neutral, structured observation summary. The prompt must not ask the
+      model to rate severity or conclude a cause.</p>
+      <div class="hint"><b>Framework reminder:</b> use constraints to keep the output descriptive only, and an
+      output format with columns for observation, location and a follow-up question.</div>
+
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> Output describes only what was observed.</li>
+        <li><span class="checkbox"></span> No severity rating or cause is stated.</li>
+        <li><span class="checkbox"></span> Each item has a sensible follow-up question.</li>
+        <li><span class="checkbox"></span> Language is neutral and factual.</li>
+      </ul>
+
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Neutral framing</td><td>Descriptive, no judgement</td><td>Rates or concludes</td></tr>
+          <tr><td>Constraints</td><td>Blocks severity and cause</td><td>Missing</td></tr>
+          <tr><td>Structure</td><td>Clear table</td><td>Loose prose</td></tr>
+          <tr><td>Responsible use</td><td>Leaves decisions to experts</td><td>Overreaches</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Reflection questions</h4>
+      <ul>
+        <li>Why is it important that this summary avoids conclusions?</li>
+        <li>Who should decide severity and next steps?</li>
+      </ul>
+
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Severity, root cause and any corrective action are decisions for qualified staff following approved
+      quality processes &mdash; not for an AI tool.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 3 =============== -->
+  <article class="case-study" id="cs3">
+    <div class="cs-head"><div class="cs-num">Case Study 3</div><h2>Cross-functional meeting minutes</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+      <h4>Scenario</h4>
+      <p>You took quick notes in a fictional cross-functional coordination meeting and need clean minutes with
+      clear decisions and actions.</p>
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">Present: representatives from planning, stores and administration. Discussed a new
+        internal request form; agreed to pilot it for two weeks. Planning to draft the form; stores to list
+        required fields; admin to arrange a shared folder. Follow-up meeting suggested but date not fixed. One
+        open question about who approves the final form.</p>
+      </div>
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Make minutes from these notes and fill in anything missing.</div>
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>"Fill in anything missing" explicitly invites hallucination.</li>
+        <li>No constraint to mark unknowns as "to be confirmed".</li>
+        <li>No minutes structure &mdash; attendees, decisions, actions and open questions are unspecified.</li>
+        <li>No role or audience for who will read and confirm the minutes.</li>
+        <li>Gaps in the notes (follow-up date, approver) would likely be invented.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+      <h4>Your task</h4>
+      <p>Write a prompt that produces formal minutes with attendees, decisions, actions (owner and due date) and
+      open questions &mdash; using only the notes, with unknowns marked clearly.</p>
+      <div class="hint"><b>Hint:</b> "fill in anything missing" is the flaw. Replace it with a constraint that
+      marks unknowns as "to be confirmed".</div>
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> Decisions and actions are clearly separated.</li>
+        <li><span class="checkbox"></span> Every action has an owner or "to be confirmed".</li>
+        <li><span class="checkbox"></span> The open question is captured.</li>
+        <li><span class="checkbox"></span> Nothing was invented to fill gaps.</li>
+      </ul>
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Structure</td><td>Standard minutes layout</td><td>Disorganised</td></tr>
+          <tr><td>Accuracy</td><td>Matches the notes</td><td>Adds detail</td></tr>
+          <tr><td>Actions</td><td>Owner and date fields</td><td>Vague</td></tr>
+          <tr><td>Gap handling</td><td>Unknowns flagged</td><td>Gaps invented</td></tr>
+        </tbody>
+      </table>
+      <h4>Reflection questions</h4>
+      <ul><li>How did removing "fill in anything missing" change the result?</li>
+      <li>What would you verify with attendees before circulating?</li></ul>
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Minutes should be confirmed by the chair before circulation.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 4 =============== -->
+  <article class="case-study" id="cs4">
+    <div class="cs-head"><div class="cs-num">Case Study 4</div><h2>HR policy simplification</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+      <h4>Scenario</h4>
+      <p>A fictional internal note about a new flexible-hours trial is written in dense language. You want a
+      plain-language version for all staff, without changing the meaning.</p>
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">"A trial of flexible start times (between 8:00 and 10:00) will operate for the
+        administration team for six weeks, subject to team coverage being maintained and manager confirmation.
+        Core hours remain unchanged. Feedback will be gathered at the end of the trial."</p>
+      </div>
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Make this policy simple and add the benefits.</div>
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>"Add the benefits" asks for claims that are not in the source.</li>
+        <li>No "no new information" constraint &mdash; meaning can drift.</li>
+        <li>Audience is vague &mdash; "simple" is not the same as plain language for all staff.</li>
+        <li>No instruction to preserve every fact (times, duration, conditions).</li>
+        <li>No output format or quality check for faithfulness to the original note.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+      <h4>Your task</h4>
+      <p>Write a prompt that produces a plain-language version for all staff, preserving every fact and not
+      adding benefits or claims that are not in the source.</p>
+      <div class="hint"><b>Framework reminder:</b> audience-aware plus a strict "no new information" constraint.</div>
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> All facts preserved (times, duration, conditions).</li>
+        <li><span class="checkbox"></span> No new benefits or promises added.</li>
+        <li><span class="checkbox"></span> Language is clear for all staff.</li>
+        <li><span class="checkbox"></span> Conditions (coverage, manager confirmation) kept.</li>
+      </ul>
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Meaning preserved</td><td>Identical facts</td><td>Meaning drifts</td></tr>
+          <tr><td>Audience fit</td><td>Plain and clear</td><td>Still dense</td></tr>
+          <tr><td>No added claims</td><td>Nothing invented</td><td>Adds benefits</td></tr>
+          <tr><td>Tone</td><td>Neutral, inclusive</td><td>Off-tone</td></tr>
+        </tbody>
+      </table>
+      <h4>Reflection questions</h4>
+      <ul><li>Where was the temptation to add "benefits"?</li><li>Who should approve an HR communication like this?</li></ul>
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      HR communications must be approved by the relevant owner before release.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 5 =============== -->
+  <article class="case-study" id="cs5">
+    <div class="cs-head"><div class="cs-num">Case Study 5</div><h2>IT incident communication</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+      <h4>Scenario</h4>
+      <p>A fictional shared drive was briefly unavailable this morning and is now restored. You must inform staff
+      simply and reassuringly, without technical detail or speculation about the cause.</p>
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">Shared drive "TeamDocs" was unavailable from about 9:10 to 9:45 today. Access is now
+        restored. No action needed from users. Cause under review by IT; details not yet confirmed. Contact the
+        IT helpdesk for any lingering access issue.</p>
+      </div>
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write an IT email and explain what caused the outage.</div>
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>Asks to explain the cause when the source says it is under review and unconfirmed.</li>
+        <li>Invites speculation and invented technical detail.</li>
+        <li>No audience or tone &mdash; not framed as a short, reassuring staff notice.</li>
+        <li>No constraint to use only confirmed facts from the source.</li>
+        <li>No clear output format (what happened, status, what to do, contact).</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+      <h4>Your task</h4>
+      <p>Write a prompt that produces a short, reassuring notice using only the source, explicitly avoiding any
+      unconfirmed cause.</p>
+      <div class="hint"><b>Hint:</b> add a constraint: "do not speculate about the cause; state it is under review".</div>
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> No speculated cause appears.</li>
+        <li><span class="checkbox"></span> Restored status and timings are correct.</li>
+        <li><span class="checkbox"></span> A clear contact is given.</li>
+        <li><span class="checkbox"></span> Tone is calm and brief.</li>
+      </ul>
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Factual restraint</td><td>No speculation</td><td>Guesses cause</td></tr>
+          <tr><td>Clarity</td><td>Short and clear</td><td>Overlong</td></tr>
+          <tr><td>Reassurance</td><td>Calm, helpful</td><td>Alarming</td></tr>
+          <tr><td>Actionability</td><td>Clear contact</td><td>No next step</td></tr>
+        </tbody>
+      </table>
+      <h4>Reflection questions</h4>
+      <ul><li>Why is speculating about the cause risky here?</li><li>What must IT confirm before any cause is shared?</li></ul>
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Do not state a cause until it is confirmed through the proper process.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 6 =============== -->
+  <article class="case-study" id="cs6">
+    <div class="cs-head"><div class="cs-num">Case Study 6</div><h2>R&amp;D technical simplification</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+      <h4>Scenario</h4>
+      <p>A fictional internal experiment note uses technical language. You want a plain-language summary for a
+      non-technical operations audience, keeping every fact and all uncertainty intact.</p>
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">"A bench trial compared two mixing times for a fictional model blend. The longer time
+        appeared to give a more uniform mix in this small trial, but the difference was small and results varied
+        between runs. Further testing is suggested before any conclusion."</p>
+      </div>
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Summarise this and tell operations which mixing time is best.</div>
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>Asks which mixing time is "best" &mdash; a technical recommendation the model must not make.</li>
+        <li>Flattens uncertainty &mdash; the source says the difference was small and results varied.</li>
+        <li>Wrong goal for a non-technical audience &mdash; seeks a decision, not a faithful summary.</li>
+        <li>No constraint to preserve uncertainty or avoid conclusions.</li>
+        <li>No plain-language or output-format guidance for operations readers.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+      <h4>Your task</h4>
+      <p>Write a prompt for a plain-language summary that preserves the uncertainty and does not recommend a
+      "best" option.</p>
+      <div class="hint"><b>Framework reminder:</b> constraint = "preserve uncertainty; do not state a conclusion or recommendation".</div>
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> Uncertainty is clearly preserved.</li>
+        <li><span class="checkbox"></span> No "best option" recommendation is made.</li>
+        <li><span class="checkbox"></span> Language suits non-technical readers.</li>
+        <li><span class="checkbox"></span> The suggestion for further testing is kept.</li>
+      </ul>
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Uncertainty kept</td><td>Clearly preserved</td><td>Overstated as fact</td></tr>
+          <tr><td>No conclusion</td><td>Avoids recommending</td><td>Picks a winner</td></tr>
+          <tr><td>Plain language</td><td>Accessible</td><td>Still technical</td></tr>
+          <tr><td>Accuracy</td><td>Faithful to source</td><td>Distorted</td></tr>
+        </tbody>
+      </table>
+      <h4>Reflection questions</h4>
+      <ul><li>Why does preserving uncertainty matter for R&amp;D content?</li><li>Who is qualified to draw a conclusion here?</li></ul>
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Technical conclusions require qualified R&amp;D judgement, not an AI summary.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 7 =============== -->
+  <article class="case-study" id="cs7">
+    <div class="cs-head"><div class="cs-num">Case Study 7</div><h2>L&amp;D training-content creation</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+      <h4>Scenario</h4>
+      <p>You are preparing a fictional 30-minute refresher on writing clear internal emails and need learning
+      objectives plus a short session outline.</p>
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">Audience: mixed office staff. Time: 30 minutes. Focus: structure, tone, and a quick
+        checklist before sending. Should include one short practice activity. Keep it practical.</p>
+      </div>
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Create a training on emails.</div>
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>Extremely vague &mdash; "a training on emails" has no usable goal.</li>
+        <li>No audience, duration, or session focus from the source brief.</li>
+        <li>No required deliverables &mdash; learning objectives and timed outline are missing.</li>
+        <li>No mention of a practice activity or practical checklist focus.</li>
+        <li>No role, constraints or output format to keep the session to 30 minutes.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+      <h4>Your task</h4>
+      <p>Write a prompt that produces three clear learning objectives and a timed 30-minute outline with one
+      activity, suitable for mixed office staff.</p>
+      <div class="hint"><b>Hint:</b> specify the audience, duration, number of objectives and the required activity.</div>
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+      <h4>Your improved prompt</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up prompt</h4>
+      <div class="write-lines"></div>
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> Objectives are observable and realistic for 30 minutes.</li>
+        <li><span class="checkbox"></span> The outline is timed and includes an activity.</li>
+        <li><span class="checkbox"></span> Content is practical, not theoretical.</li>
+        <li><span class="checkbox"></span> Suitable for a mixed audience.</li>
+      </ul>
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Objectives</td><td>Clear, observable</td><td>Vague</td></tr>
+          <tr><td>Timing</td><td>Fits 30 minutes</td><td>Unrealistic</td></tr>
+          <tr><td>Activity</td><td>Relevant practice</td><td>Missing</td></tr>
+          <tr><td>Practicality</td><td>Immediately usable</td><td>Too abstract</td></tr>
+        </tbody>
+      </table>
+      <h4>Reflection questions</h4>
+      <ul><li>How did naming the audience and time change the outline?</li><li>What would you adjust after a first run?</li></ul>
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Review AI-generated training content for accuracy and fit before delivering it.</div>
+    </div>
+  </article>
+
+  <!-- =============== CASE 8 (CAPSTONE) =============== -->
+  <article class="case-study" id="cs8">
+    <div class="cs-head"><div class="cs-num">Case Study 8 &middot; Capstone</div><h2>ChatGPT-to-Gamma presentation</h2></div>
+    <div class="cs-body">
+      <p class="disclaimer">This is a fictional workshop scenario and not an official pharmaceutical record.</p>
+      <h4>Scenario</h4>
+      <p>You must prepare a fictional six-slide internal presentation introducing a simple "clear email"
+      checklist to office teams, then generate it in Gamma. This capstone combines everything.</p>
+      <h4>Fictional source input</h4>
+      <div class="write-box" style="min-height:auto;background:var(--bg-tint)">
+        <p style="margin:0">Purpose: help office teams write clearer internal emails. Audience: mixed office
+        staff. Duration of talk: about 8 minutes. Key ideas: state the purpose first, keep it short, use a clear
+        subject, one ask per email, check before sending. Tone: friendly and practical.</p>
+      </div>
+      <h4>Weak prompt</h4>
+      <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Make me a presentation about emails in Gamma.</div>
+      <h4>What is wrong with the weak prompt?</h4>
+      <ul>
+        <li>Too vague &mdash; topic only; no slide count, talk length or storyline.</li>
+        <li>No audience, purpose or tone from the source brief.</li>
+        <li>No source grounding &mdash; the checklist ideas are not attached as inputs.</li>
+        <li>No ChatGPT output format (per-slide title, message, points, visual).</li>
+        <li>No constraints against invented statistics or text-heavy slides before Gamma.</li>
+      </ul>
+      <p style="margin:8px 0 4px;font-size:0.9rem;color:var(--muted,#5a6a7a)">Your notes:</p>
+      <div class="write-lines short"></div>
+      <h4>Your task</h4>
+      <p>Write a ChatGPT prompt that produces a six-slide outline (title, one key message, up to three points,
+      suggested visual per slide), review it, then note how you would generate and refine it in Gamma.</p>
+      <div class="hint"><b>Framework reminder:</b> see Resource 07 for the full ChatGPT-to-Gamma workflow and the
+      reusable presentation prompt.</div>
+      <h4>Blank advanced-framework worksheet</h4>
+      <div class="worksheet">
+        <div class="ws-row"><div class="ws-label">Goal</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Role</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Context</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Source input</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Audience</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Instructions</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Constraints</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Output format</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Quality criteria</div><div class="ws-field"></div></div>
+        <div class="ws-row"><div class="ws-label">Validation</div><div class="ws-field"></div></div>
+      </div>
+      <h4>Your improved prompt (for the ChatGPT outline)</h4>
+      <div class="write-lines tall"></div>
+      <h4>Your follow-up / critique prompt</h4>
+      <div class="write-lines"></div>
+      <h4>How will you refine it in Gamma?</h4>
+      <div class="write-lines"></div>
+      <h4>Expected output structure</h4>
+      <ul>
+        <li>Six slides: opening, four content ideas, and a short recap.</li>
+        <li>Each slide: one message, up to three brief points, a suggested visual.</li>
+        <li>Bullets under 12 words; no invented statistics.</li>
+      </ul>
+      <h4>Output-review checklist</h4>
+      <ul class="checklist">
+        <li><span class="checkbox"></span> The storyline flows logically with no duplication.</li>
+        <li><span class="checkbox"></span> Every slide has one clear message.</li>
+        <li><span class="checkbox"></span> No unsupported facts or statistics.</li>
+        <li><span class="checkbox"></span> Content is suitable for the audience and for Gamma.</li>
+      </ul>
+      <h4>Evaluation rubric</h4>
+      <table class="rubric">
+        <thead><tr><th>Criterion</th><th>Strong</th><th>Needs work</th></tr></thead>
+        <tbody>
+          <tr><td>Framing</td><td>Clear objective and audience</td><td>Vague</td></tr>
+          <tr><td>Storyline</td><td>Logical, no repetition</td><td>Disjointed</td></tr>
+          <tr><td>Conciseness</td><td>Short bullets</td><td>Text-heavy</td></tr>
+          <tr><td>Review</td><td>Checked before Gamma</td><td>Skipped</td></tr>
+        </tbody>
+      </table>
+      <h4>Reflection questions</h4>
+      <ul>
+        <li>Which framework element improved the outline most?</li>
+        <li>What did you change during the Gamma refinement, and why?</li>
+        <li>What still needed your own judgement rather than the tool&rsquo;s?</li>
+      </ul>
+      <div class="box warning"><div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Review the final presentation for accuracy and suitability before sharing it. AI output is a draft until a
+      human reviews it.</div>
+    </div>
+  </article>
+
+  <footer class="doc-footer">
+    <span class="brand">Advanced Prompt Engineering with ChatGPT and Gamma AI</span>
+    <span>Resource 06 &middot; Case-Study Workbook</span>
+  </footer>
+
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Review Checklist &middot; Advanced Prompt Engineering</title>
+<meta name="description" content="One-page prompt review checklist: before running and after receiving a prompt.">
+<link rel="stylesheet" href="../assets/screen.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<style>
+  .cl-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .cl-panel { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .cl-panel h2 { color:#fff; margin:0; padding:10px 14px; font-size:1.08rem; display:flex; align-items:center; gap:8px; }
+  .cl-panel.before h2 { background: var(--navy); }
+  .cl-panel.after h2 { background: var(--teal); }
+  .cl-panel h2 .icon { width:20px; height:20px; fill:#fff; }
+  .cl-panel .checklist { padding: 10px 14px; }
+  @media print {
+    @page { size: A4 portrait; margin: 12mm; }
+    .cl-cols { gap: 12px; }
+    .checklist li { font-size: 10pt; padding: 5px 0; }
+  }
+  @media (max-width: 820px) { .cl-cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="one-page">
+<div class="wrap">
+
+  <div class="toolbar no-print">
+    <a class="back-link" href="../index.html">
+      <svg class="icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor"><use href="../assets/icons.svg#home"></use></svg>
+      Back to resource pack
+    </a>
+    <button type="button" class="btn" onclick="window.print()">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
+      Print this resource
+    </button>
+  </div>
+
+  <header class="doc-header" style="padding:18px 22px;margin-bottom:16px">
+    <div class="eyebrow">Resource 03 &middot; Workstation reference</div>
+    <h1 style="font-size:1.7rem">Prompt Review Checklist</h1>
+    <p>Tick each item before running a prompt and again after receiving the response. Keep this page at your
+    workstation.</p>
+  </header>
+
+  <div class="cl-cols">
+    <section class="cl-panel before">
+      <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#target"></use></svg>Before running the prompt</h2>
+      <ul class="checklist">
+        <li><span class="checkbox" aria-hidden="true"></span> Is the business objective clear?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Is the intended audience identified?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Is the relevant source information included?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Are the instructions specific?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Are assumptions controlled?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Are constraints clearly stated?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Is the output format defined?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Are quality criteria included?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Is the information safe and approved for upload?</li>
+      </ul>
+    </section>
+
+    <section class="cl-panel after">
+      <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#check"></use></svg>After receiving the response</h2>
+      <ul class="checklist">
+        <li><span class="checkbox" aria-hidden="true"></span> Did ChatGPT follow every instruction?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Did it add unsupported information?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Is important information missing?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Is the tone appropriate for the audience?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Are facts and assumptions clearly separated?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Does it require subject-matter review?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> What follow-up prompt could improve it?</li>
+        <li><span class="checkbox" aria-hidden="true"></span> Has the final output been verified?</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="box remember" style="margin-top:16px">
+    <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#bulb"></use></svg>Remember</div>
+    AI output is a draft until a human reviews it. Verify important facts, references and calculations, and keep
+    final accountability with the human user.
+  </div>
+
+  <footer class="doc-footer">
+    <span class="brand">Advanced Prompt Engineering with ChatGPT and Gamma AI</span>
+    <span>Resource 03 &middot; Prompt Review Checklist</span>
+  </footer>
+
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+  }
+</script>
+</body>
+</html>

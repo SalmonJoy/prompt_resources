@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Participant Assessment &middot; Advanced Prompt Engineering</title>
+<meta name="description" content="End-of-session participant assessment for the advanced prompt engineering workshop.">
+<link rel="stylesheet" href="../assets/screen.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<style>
+  .mcq { border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:12px 0; background:#fff; }
+  .mcq .q { font-weight:700; color:var(--navy); }
+  .mcq ol { list-style: upper-alpha; margin:8px 0 0; }
+  .mcq ol li { margin-bottom:3px; }
+  .answer-line { margin-top:8px; font-size:0.9rem; }
+  .answer-line .blank { display:inline-block; border-bottom:1.5px solid var(--line-strong); width:70px; }
+  .identity { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .identity .field { border:1px solid var(--line); border-radius:8px; padding:8px 12px; }
+  .identity .field span { font-size:0.8rem; color:var(--ink-soft); display:block; }
+  .identity .field .line { border-bottom:1px solid var(--line-strong); height:20px; }
+  @media print { @page{ size:A4 portrait; margin:13mm; } .mcq{ break-inside:avoid; } }
+  @media (max-width:820px){ .identity{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-link no-print" href="../index.html">
+    <svg class="icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor"><use href="../assets/icons.svg#home"></use></svg>
+    Back to resource pack
+  </a>
+
+  <header class="doc-header">
+    <div class="eyebrow">Resource 08 &middot; Participant Assessment</div>
+    <h1>End-of-Session Assessment</h1>
+    <p>Complete this assessment individually. Write your answers in the spaces provided. This is for your own
+    learning and practice.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button type="button" class="btn" onclick="window.print()">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
+      Print this resource
+    </button>
+    <a class="btn secondary" href="../index.html">All resources</a>
+  </div>
+
+  <section class="card">
+    <div class="identity">
+      <div class="field"><span>Name</span><div class="line"></div></div>
+      <div class="field"><span>Department</span><div class="line"></div></div>
+      <div class="field"><span>Date</span><div class="line"></div></div>
+      <div class="field"><span>Time taken</span><div class="line"></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION A ===================== -->
+  <h2>Section A &middot; Knowledge check</h2>
+  <p class="muted">Choose the single best answer for each question and write the letter in the box.</p>
+
+  <div class="mcq">
+    <p class="q">1. Task framing &mdash; What should you do first, before writing a prompt?</p>
+    <ol>
+      <li>Ask for the longest possible answer</li>
+      <li>Identify the real objective, the audience and what a good output looks like</li>
+      <li>Choose a font and layout</li>
+      <li>Paste as much information as possible</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">2. Context engineering &mdash; The phrase &ldquo;control the information environment&rdquo; mainly means:</p>
+    <ol>
+      <li>Using more forceful wording</li>
+      <li>Shaping the background and material the model relies on</li>
+      <li>Turning off the internet</li>
+      <li>Writing in capital letters</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">3. Source grounding &mdash; What is the purpose of &lt;source&gt; tags in a prompt?</p>
+    <ol>
+      <li>To make the prompt look technical</li>
+      <li>To separate the material to use from your instructions and limit the model to that material</li>
+      <li>To hide the source from the model</li>
+      <li>To translate the text</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">4. Constraints &mdash; A negative constraint is one that:</p>
+    <ol>
+      <li>Praises the model</li>
+      <li>States what must be excluded, limited or not assumed</li>
+      <li>Adds more examples</li>
+      <li>Increases the word count</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">5. Structured output &mdash; Which instruction best supports reuse of the output?</p>
+    <ol>
+      <li>&ldquo;Write whatever you think is best&rdquo;</li>
+      <li>&ldquo;Return a table with columns: Criterion, Option A, Option B, Notes&rdquo;</li>
+      <li>&ldquo;Be creative&rdquo;</li>
+      <li>&ldquo;Make it long&rdquo;</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">6. Iterative prompting &mdash; The Generate&ndash;Critique&ndash;Improve&ndash;Validate&ndash;Finalise cycle exists to:</p>
+    <ol>
+      <li>Make prompting slower for its own sake</li>
+      <li>Refine a first draft into a reviewed, usable output through steps</li>
+      <li>Avoid ever reviewing the output</li>
+      <li>Replace human judgement</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">7. Evaluation &mdash; A rubric is most useful because it:</p>
+    <ol>
+      <li>Guarantees a perfect output every time</li>
+      <li>Turns &ldquo;make it better&rdquo; into specific, checkable criteria</li>
+      <li>Removes the need to read the output</li>
+      <li>Adds decorative formatting</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">8. Hallucination control &mdash; Which action best reduces invented facts?</p>
+    <ol>
+      <li>Asking the model to sound more confident</li>
+      <li>Grounding the prompt in an approved source and asking it to mark anything unsupported</li>
+      <li>Making the prompt shorter</li>
+      <li>Trusting any references it provides</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">9. Responsible AI &mdash; Which is generally safe to use with a public AI tool?</p>
+    <ol>
+      <li>Product formulas</li>
+      <li>Patient or personal data</li>
+      <li>A fictional or anonymised practice example</li>
+      <li>Credentials and passwords</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <div class="mcq">
+    <p class="q">10. ChatGPT-to-Gamma workflow &mdash; What should happen before generating slides in Gamma?</p>
+    <ol>
+      <li>Nothing; generate first and check later</li>
+      <li>Build and review the outline for facts and flow in ChatGPT</li>
+      <li>Add as many visuals as possible</li>
+      <li>Write every slide manually in a word processor</li>
+    </ol>
+    <div class="answer-line">Your answer: <span class="blank"></span></div>
+  </div>
+
+  <!-- ===================== SECTION B ===================== -->
+  <h2 class="page-break">Section B &middot; Prompt improvement</h2>
+  <p>Improve each weak prompt below using the advanced prompt framework. Write your improved prompt in the space
+  provided. Include, as appropriate: role, goal, context, source handling, audience, instructions, constraints,
+  output format and quality criteria.</p>
+
+  <h3>Weak prompt 1</h3>
+  <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Write a report about last month.</div>
+  <p class="field-label">Your improved prompt</p>
+  <div class="write-lines tall"></div>
+
+  <h3>Weak prompt 2</h3>
+  <div class="prompt weak"><span class="prompt-label">Weak prompt</span>Summarise this document and tell me what to do.</div>
+  <p class="field-label">Your improved prompt</p>
+  <div class="write-lines tall"></div>
+
+  <!-- ===================== SECTION C ===================== -->
+  <h2 class="page-break">Section C &middot; Practical scenario</h2>
+  <div class="box tip">
+    <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#doc"></use></svg>Fictional scenario</div>
+    Your team has been asked to prepare a short internal note announcing that a fictional internal request form
+    will be piloted for two weeks. You have a few rough facts: the pilot dates, which team is involved, and that
+    feedback will be gathered at the end. Some details are still unconfirmed. The note will go to all staff in
+    the affected team.
+  </div>
+
+  <p>Using the framework, complete the following. This is a fictional workshop scenario and not an official
+  record.</p>
+
+  <ol>
+    <li><span class="field-label">Define the business goal</span><div class="write-lines short"></div></li>
+    <li><span class="field-label">Identify the audience</span><div class="write-lines short"></div></li>
+    <li><span class="field-label">List the source information you would use</span><div class="write-lines short"></div></li>
+    <li><span class="field-label">Define the constraints</span><div class="write-lines short"></div></li>
+    <li><span class="field-label">Specify the output format</span><div class="write-lines short"></div></li>
+    <li><span class="field-label">Write a complete structured prompt</span><div class="write-lines tall"></div></li>
+    <li><span class="field-label">Write one critique prompt</span><div class="write-lines"></div></li>
+    <li><span class="field-label">Write one refinement prompt</span><div class="write-lines"></div></li>
+    <li><span class="field-label">Explain how the final output should be validated</span><div class="write-lines"></div></li>
+  </ol>
+
+  <div class="box warning">
+    <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+    Use fictional information only. Remember that AI output is a draft until a human reviews it, and that internal
+    company policy takes precedence over any workshop guidance.
+  </div>
+
+  <footer class="doc-footer">
+    <span class="brand">Advanced Prompt Engineering with ChatGPT and Gamma AI</span>
+    <span>Resource 08 &middot; Participant Assessment</span>
+  </footer>
+
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+  }
+</script>
+</body>
+</html>

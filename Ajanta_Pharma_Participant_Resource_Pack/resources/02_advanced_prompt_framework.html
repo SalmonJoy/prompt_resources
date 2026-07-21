@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced AI Prompt Framework &middot; Workstation Poster</title>
+<meta name="description" content="One-page A4 workstation poster: the advanced AI prompt framework.">
+<link rel="stylesheet" href="../assets/screen.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<style>
+  /* Poster-specific layout tuned to fit exactly one A4 portrait page. */
+  .poster-sheet {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 26px 18px;
+    box-shadow: var(--shadow);
+  }
+  .poster-top { text-align: center; border-bottom: 3px solid var(--teal); padding-bottom: 12px; margin-bottom: 14px; }
+  .poster-top h1 { font-size: 2.1rem; margin: 4px 0 6px; }
+  .poster-top .subtitle { font-size: 1.05rem; font-weight: 700; color: var(--teal); }
+  .poster-logo { margin: 0 auto 8px; max-width: 320px; }
+  .poster-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .pcol { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .pcol h2 { color: #fff; font-size: 1.02rem; margin: 0; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+  .pcol.before h2 { background: var(--navy); }
+  .pcol.build h2 { background: var(--blue); }
+  .pcol.after h2 { background: var(--teal); }
+  .pcol h2 .icon { width: 20px; height: 20px; fill: #fff; }
+  .pcol ul { list-style: none; margin: 0; padding: 10px 12px; }
+  .pcol li { font-size: 0.86rem; padding: 5px 0 5px 20px; position: relative; border-bottom: 1px dashed var(--line); line-height: 1.35; }
+  .pcol li:last-child { border-bottom: none; }
+  .pcol li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 9px; height: 9px; border-radius: 2px; }
+  .pcol.before li::before { background: var(--navy); }
+  .pcol.build li::before { background: var(--blue); }
+  .pcol.after li::before { background: var(--teal); }
+  .poster-footer { margin-top: 14px; border: 1px solid #eed6a6; background: var(--amber-soft); border-radius: 10px; padding: 12px 14px; font-size: 0.82rem; color: #5a3d0d; }
+  .poster-footer .box-title { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--amber); margin-bottom: 4px; }
+  .poster-footer .icon { width: 18px; height: 18px; fill: var(--amber); }
+  .poster-brand { text-align: center; font-weight: 700; color: var(--navy); margin-top: 12px; font-size: 0.85rem; }
+
+  @media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    body.poster { background: #fff; }
+    .poster-sheet { border: none; box-shadow: none; padding: 0; max-width: none; }
+    .poster-top h1 { font-size: 26pt; }
+    .poster-top .subtitle { font-size: 13pt; }
+    .pcol li { font-size: 9.6pt; }
+    .pcol h2 { font-size: 12pt; }
+  }
+  @media (max-width: 820px) { .poster-cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="poster one-page">
+<div class="wrap">
+
+  <div class="toolbar no-print">
+    <a class="back-link" href="../index.html">
+      <svg class="icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor"><use href="../assets/icons.svg#home"></use></svg>
+      Back to resource pack
+    </a>
+    <button type="button" class="btn" onclick="window.print()">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#print"></use></svg>
+      Print this resource
+    </button>
+  </div>
+
+  <div class="poster-sheet">
+    <div class="poster-top">
+      <div class="logo-slot poster-logo">Insert approved organisation logo here</div>
+      <h1>Advanced AI Prompt Framework</h1>
+      <div class="subtitle">Frame the Problem &rarr; Ground the Model &rarr; Engineer the Result</div>
+    </div>
+
+    <div class="poster-cols">
+      <section class="pcol before">
+        <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#target"></use></svg>Before Prompting</h2>
+        <ul>
+          <li>What is my real objective?</li>
+          <li>Who is the output for?</li>
+          <li>What information is available?</li>
+          <li>What must ChatGPT not assume?</li>
+          <li>What does a successful output look like?</li>
+        </ul>
+      </section>
+
+      <section class="pcol build">
+        <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#layers"></use></svg>Build the Prompt</h2>
+        <ul>
+          <li>Goal</li>
+          <li>Role</li>
+          <li>Context</li>
+          <li>Source</li>
+          <li>Audience</li>
+          <li>Instructions</li>
+          <li>Constraints</li>
+          <li>Output format</li>
+          <li>Quality criteria</li>
+        </ul>
+      </section>
+
+      <section class="pcol after">
+        <h2><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#check"></use></svg>After Receiving the Output</h2>
+        <ul>
+          <li>Check instruction compliance</li>
+          <li>Check factual accuracy</li>
+          <li>Identify unsupported claims</li>
+          <li>Identify missing information</li>
+          <li>Refine the response</li>
+          <li>Obtain human review</li>
+          <li>Verify before use</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="poster-footer">
+      <div class="box-title"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#shield"></use></svg>Responsible use</div>
+      Never upload confidential, personal, proprietary, audit-sensitive, clinical, formula-related, regulatory
+      or credential information into public AI tools without organisational approval.
+    </div>
+
+    <div class="poster-brand">Advanced Prompt Engineering with ChatGPT and Gamma AI</div>
+  </div>
+
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('print') === '1') {
+    window.addEventListener('load', function () { setTimeout(function(){ window.print(); }, 300); });
+  }
+</script>
+</body>
+</html>
